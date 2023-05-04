@@ -60,6 +60,22 @@ public class InsertPanel implements ActionListener {
                 CustomerPanel customer = new CustomerPanel();
                 customer.sendMain(main, frame);
             }
+            if (select.getSelectedItem().equals("Employee")) {
+                EmployeePanel employee = new EmployeePanel();
+                employee.sendMain(main, frame);
+            }
+            if (select.getSelectedItem().equals("Finance Manager")) {
+                FinancemanagerPanel financemanager = new FinancemanagerPanel();
+                financemanager.sendMain(main, frame);
+            }
+            if (select.getSelectedItem().equals("Janator")) {
+                JanatorPanel janator = new JanatorPanel();
+                janator.sendMain(main, frame);
+            }
+            if (select.getSelectedItem().equals("New Car")) {
+                NewcarPanel newcar = new NewcarPanel();
+                newcar.sendMain(main, frame);
+            }
         }
     }
 

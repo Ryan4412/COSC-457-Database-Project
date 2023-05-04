@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CustomerPanel implements ActionListener {
+public class EmployeePanel implements ActionListener {
 
     JPanel main;
     GUI frame;
@@ -23,31 +23,25 @@ public class CustomerPanel implements ActionListener {
     JLabel last = new JLabel();
     JTextField lastTxt = new JTextField();
     String lastS = "";
-    JLabel occupation = new JLabel();
-    JTextField occupationTxt = new JTextField();
-    String occupationS = "";
-    JLabel creditScore = new JLabel();
-    JTextField creditScoreTxt = new JTextField();
-    String creditScoreS = "";
-    JLabel gmi = new JLabel();
-    JTextField gmiTxt = new JTextField();
-    String gmiS = "";
-    JLabel recentEmployer = new JLabel();
-    JTextField recentEmployerTxt = new JTextField();
-    String recentEmployerS = "";
-    JLabel licenseNum = new JLabel();
-    JTextField licenseNumTxt = new JTextField();
-    String licenseNumS = "";
-    JLabel paymentType = new JLabel();
-    JTextField paymentTypeTxt = new JTextField();
-    String paymentTypeS = "";
+    JLabel jobType = new JLabel();
+    JTextField jobTypeTxt = new JTextField();
+    String jobTypeS = "";
+    JLabel salary = new JLabel();
+    JTextField salaryTxt = new JTextField();
+    String salaryS = "";
+    JLabel department = new JLabel();
+    JTextField departmentTxt = new JTextField();
+    String departmentS = "";
+    JLabel address = new JLabel();
+    JTextField addressTxt = new JTextField();
+    String addressS = "";
     JButton submit = new JButton();
     JButton cancle = new JButton();
     String insert = "";
 
-    public CustomerPanel() {
+    public EmployeePanel() {
         // ssn elements
-        ssn.setText("Customer ssn:");
+        ssn.setText("Employee ssn:");
         ssn.setBounds(10, 10, 300, 25);
         ssnTxt.setBounds(230, 10, 150, 25);
         // first elements
@@ -62,30 +56,22 @@ public class CustomerPanel implements ActionListener {
         last.setText("Last name:");
         last.setBounds(10, 100, 300, 25);
         lastTxt.setBounds(230, 100, 150, 25);
-        // creditScore_first
-        creditScore.setText("Credit score:");
-        creditScore.setBounds(10, 130, 300, 25);
-        creditScoreTxt.setBounds(230, 130, 150, 25);
-        // gmi elements
-        gmi.setText("Gross monthly income:");
-        gmi.setBounds(10, 160, 300, 25);
-        gmiTxt.setBounds(230, 160, 150, 25);
-        // recentEmployer elements
-        recentEmployer.setText("Most recent employer:");
-        recentEmployer.setBounds(10, 190, 300, 25);
-        recentEmployerTxt.setBounds(230, 190, 150, 25);
-        // licenseNum elements
-        licenseNum.setText("License number:");
-        licenseNum.setBounds(10, 220, 300, 25);
-        licenseNumTxt.setBounds(230, 220, 150, 25);
-        // paymentType elements
-        paymentType.setText("payment type:");
-        paymentType.setBounds(10, 250, 300, 25);
-        paymentTypeTxt.setBounds(230, 250, 150, 25);
-        // occupation elements
-        occupation.setText("Occupation:");
-        occupation.setBounds(10, 280, 300, 25);
-        occupationTxt.setBounds(230, 280, 150, 25);
+        // jobType elements
+        jobType.setText("Job type:");
+        jobType.setBounds(10, 130, 300, 25);
+        jobTypeTxt.setBounds(230, 130, 150, 25);
+        // salary elements
+        salary.setText("Salary:");
+        salary.setBounds(10, 160, 300, 25);
+        salaryTxt.setBounds(230, 160, 150, 25);
+        // department elements
+        department.setText("Department:");
+        department.setBounds(10, 190, 300, 25);
+        departmentTxt.setBounds(230, 190, 150, 25);
+        // address elements
+        address.setText("Address:");
+        address.setBounds(10, 220, 300, 25);
+        addressTxt.setBounds(230, 220, 150, 25);
         // submit button
         submit.addActionListener(this);
         submit.setText("Submit");
@@ -108,20 +94,16 @@ public class CustomerPanel implements ActionListener {
         panel.add(firstTxt);
         panel.add(minit);
         panel.add(minitTxt);
-        panel.add(occupation);
-        panel.add(occupationTxt);
-        panel.add(creditScore);
-        panel.add(creditScoreTxt);
-        panel.add(gmi);
-        panel.add(gmiTxt);
-        panel.add(recentEmployer);
-        panel.add(recentEmployerTxt);
-        panel.add(licenseNum);
-        panel.add(licenseNumTxt);
-        panel.add(paymentType);
-        panel.add(paymentTypeTxt);
         panel.add(last);
         panel.add(lastTxt);
+        panel.add(jobType);
+        panel.add(jobTypeTxt);
+        panel.add(salary);
+        panel.add(salaryTxt);
+        panel.add(department);
+        panel.add(departmentTxt);
+        panel.add(address);
+        panel.add(addressTxt);
         panel.add(submit);
         panel.add(cancle);
     }
@@ -144,9 +126,8 @@ public class CustomerPanel implements ActionListener {
             System.out.println(
                     ssnTxt.getText() + firstTxt.getText()
                             + minitTxt.getText() + lastTxt.getText()
-                            + occupationTxt.getText() + creditScoreTxt.getText()
-                            + gmiTxt.getText() + recentEmployerTxt.getText()
-                            + licenseNumTxt.getText() + paymentTypeTxt.getText());
+                            + jobTypeTxt.getText() + salaryTxt.getText()
+                            + departmentTxt.getText() + addressTxt.getText());
             frame.setMain();
         }
     }

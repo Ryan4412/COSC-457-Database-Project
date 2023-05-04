@@ -95,7 +95,7 @@ public class CosignerPanel implements ActionListener {
         // cancle button
         cancle.addActionListener(this);
         cancle.setText("Cancle");
-        cancle.setBounds(330, 370, 80, 25);
+        cancle.setBounds(415, 335, 80, 25);
         cancle.setFocusable(false);
         cancle.setVisible(true);
         // add elements to panel
