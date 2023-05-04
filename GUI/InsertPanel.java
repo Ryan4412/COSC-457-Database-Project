@@ -52,6 +52,10 @@ public class InsertPanel implements ActionListener {
                 CarPanel car = new CarPanel();
                 car.sendMain(main, frame);
             }
+            if (select.getSelectedItem().equals("Cosigner")) {
+                CosignerPanel cosigner = new CosignerPanel();
+                cosigner.sendMain(main, frame);
+            }
         }
     }
 
