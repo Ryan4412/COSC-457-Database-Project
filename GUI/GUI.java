@@ -1,18 +1,29 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.*;
+import java.time.Clock;
+import java.time.ZoneId;
+
 public class GUI extends JFrame implements ActionListener {
 
+    // GUI elements
     JButton insert = new JButton();
     JButton delete = new JButton();
     JButton query = new JButton();
     JPanel main = new JPanel();
+    // Conection Object
+    Connection con;
 
     public GUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,6 +62,21 @@ public class GUI extends JFrame implements ActionListener {
         main.setBackground(new Color(200, 200, 200));
         main.setBounds(200, 300, 500, 400);
         this.add(main);
+        // conection setup
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        final String ID = "rkraft3";
+        final String PW = "COSC*54rac";
+        final String SERVER = "jdbc:mysql://triton.towson.edu:3360/?serverTimezone=EST#/rkraft3db?useSSL=false";
+        try {
+            con = DriverManager.getConnection(SERVER, ID, PW);
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
 
     }
 
@@ -78,6 +104,10 @@ public class GUI extends JFrame implements ActionListener {
         main.removeAll();
         main.revalidate();
         main.repaint();
+    }
+
+    public Connection getCon() {
+        return con;
     }
 
 }

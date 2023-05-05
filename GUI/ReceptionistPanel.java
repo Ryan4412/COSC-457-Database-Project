@@ -16,6 +16,8 @@ public class ReceptionistPanel implements ActionListener {
     String ssnS = "R_SSN";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_RECEPTIONIST";
+    String[] column = { "R_SSN" };
     String insert = "INSERT INTO rkraft3db.DBP_RECEPTIONIST(R_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_RECEPTIONIST WHERE ";
     boolean sqlType;
@@ -65,16 +67,16 @@ public class ReceptionistPanel implements ActionListener {
         // insert submit
         if (e.getSource() == submit && sqlType == true) {
             insert += "'" + ssnTxt.getText() + "');";
-            System.out.println(insert);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
         if (e.getSource() == submit && sqlType == false) {
             if (ssnTxt.getText().length() > 0)
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
             delete += ";";
-            System.out.println(delete);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
         }
     }
 

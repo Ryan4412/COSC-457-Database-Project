@@ -37,6 +37,8 @@ public class EmployeePanel implements ActionListener {
     String addressS = "ADDRESS";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_EMPLOYEE";
+    String[] column = { "SSN", "FIRST", "MINIT", "LAST", "JOB_TYPE", "SALARY", "DEPARTMENT", "ADDRESS" };
     String insert = "INSERT INTO rkraft3db.DBP_EMPLOYEE(SSN, FIRST, MINIT, LAST, JOB_TYPE, SALARY, DEPARTMENT, ADDRESS)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_EMPLOYEE WHERE ";
     boolean sqlType;
@@ -137,7 +139,8 @@ public class EmployeePanel implements ActionListener {
                     + lastTxt.getText() + "', '" + jobTypeTxt.getText() + "', '" + salaryTxt.getText() + "', '"
                     + departmentTxt.getText() + "', '" + addressTxt.getText() + "');";
             System.out.println(insert);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
         if (e.getSource() == submit && sqlType == false) {
@@ -203,8 +206,8 @@ public class EmployeePanel implements ActionListener {
                     delete += "(" + addressS + "=" + "'" + addressTxt.getText() + "')";
             }
             delete += ";";
-            System.out.println(delete);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
 
         }
     }

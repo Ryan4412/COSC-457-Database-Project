@@ -52,6 +52,9 @@ public class CarPanel implements ActionListener {
     String statusS = "STATUS";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_CAR";
+    String[] column = { "VIN", "NUM_DOORS", "COLOR", "NUM_SEATS", "ENGINE_TYPE", "NUM_MILES", "MPG", "TIRE_TYPE",
+            "MSRP", "YEAR", "MAKE", "MODEL", "STATUS" };
     String insert = "INSERT INTO rkraft3db.DBP_CAR(VIN, NUM_DOORS, COLOR, NUM_SEATS, ENGINE_TYPE, NUM_MILES, MPG, TIRE_TYPE, MSRP, YEAR, MAKE, MODEL, STATUS)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_CAR WHERE ";
     boolean sqlType;
@@ -179,7 +182,8 @@ public class CarPanel implements ActionListener {
                     + yearTxt.getText() + "', '" + makeTxt.getText() + "', '" + modelTxt.getText()
                     + "', '" + statusTxt.getText() + "');";
             System.out.println(insert);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
         if (e.getSource() == submit && sqlType == false) {
@@ -284,8 +288,8 @@ public class CarPanel implements ActionListener {
                     delete += "(" + statusS + "=" + "'" + statusTxt.getText() + "')";
             }
             delete += ";";
-            System.out.println(delete);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
 
         }
     }

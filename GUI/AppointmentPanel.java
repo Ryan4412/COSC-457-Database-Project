@@ -27,6 +27,8 @@ public class AppointmentPanel implements ActionListener {
     String repS = "REP_SSN";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_APPOINTMENT";
+    String[] column = { "APPOINTMENT_NUM", "CUSTOMER_SSN", "STATUS", "TYPE", "REP_SSN" };
     String insert = "INSERT INTO rkraft3db.DBP_APPOINTMENT(APPOINTMENT_NUM, CUSTOMER_SSN, STATUS, TYPE, REP_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_APPOINTMENT WHERE ";
     boolean sqlType;
@@ -61,7 +63,7 @@ public class AppointmentPanel implements ActionListener {
         submit.setVisible(true);
         // cancle button
         cancle.addActionListener(this);
-        cancle.setText("Cancle");
+        cancle.setText("Cancel");
         cancle.setBounds(415, 335, 80, 25);
         cancle.setFocusable(false);
         cancle.setVisible(true);
@@ -102,8 +104,9 @@ public class AppointmentPanel implements ActionListener {
         if (e.getSource() == submit && sqlType == true) {
             insert += "'" + numTxt.getText() + "', '" + ssnTxt.getText() + "', '" + statTxt.getText() + "', '"
                     + typeTxt.getText() + "', '" + repTxt.getText() + "');";
-            System.out.println(insert);
-            frame.setMain();
+            // System.out.println(insert);
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
         if (e.getSource() == submit && sqlType == false) {
@@ -145,7 +148,9 @@ public class AppointmentPanel implements ActionListener {
                     delete += "(" + repS + "=" + "'" + repTxt.getText() + "')";
             }
             delete += ";";
-            System.out.println(delete);
+            // System.out.println(delete);
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
             frame.setMain();
         }
 
