@@ -12,25 +12,28 @@ public class SalePanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel num = new JLabel();
     JTextField numTxt = new JTextField();
-    String numS = "";
+    String numS = "SALE_NUM";
     JLabel cssn = new JLabel();
     JTextField cssnTxt = new JTextField();
-    String cssnS = "";
+    String cssnS = "CUST_SSN";
     JLabel srssn = new JLabel();
     JTextField srssnTxt = new JTextField();
-    String srssnS = "";
+    String srssnS = "SREP_SSN";
     JLabel smssn = new JLabel();
     JTextField smssnTxt = new JTextField();
-    String smssnS = "";
+    String smssnS = "SMAN_SSN";
     JLabel vinNum = new JLabel();
     JTextField vinNumTxt = new JTextField();
-    String vinNumS = "";
+    String vinNumS = "SALE_VIN";
     JLabel type = new JLabel();
     JTextField typeTxt = new JTextField();
-    String typeS = "";
+    String typeS = "TYPE";
     JButton submit = new JButton();
     JButton cancle = new JButton();
-    String sqlStatment = "";
+    String insert = "INSERT INTO rkraft3db.DBP_SALE(SALE_NUM, CUST_SSN, SREP_SSN, SMAN_SSN, SALE_VIN, TYPE)VALUES(";
+    String delete = "DELETE FROM rkraft3db.DBP_SALE WHERE ";
+    boolean sqlType;
+    int deleteCount = 0;
 
     public SalePanel() {
         // num elements
@@ -89,9 +92,10 @@ public class SalePanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
         this.main = main;
         this.frame = frame;
+        this.sqlType = sqlType;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -103,12 +107,63 @@ public class SalePanel implements ActionListener {
         if (e.getSource() == cancle) {
             frame.setMain();
         }
-        if (e.getSource() == submit) {
-            System.out.println(
-                    numTxt.getText() + cssnTxt.getText()
-                            + srssnTxt.getText() + smssnTxt.getText()
-                            + vinNumTxt.getText() + typeTxt.getText());
+        // insert submit
+        if (e.getSource() == submit && sqlType == true) {
+            insert += "'" + numTxt.getText() + "', '" + cssnTxt.getText() + "', '" + srssnTxt.getText() + "', '"
+                    + smssnTxt.getText() + "', '" + vinNumTxt.getText() + "', '" + typeTxt.getText() + "');";
+            System.out.println(insert);
             frame.setMain();
+        }
+        // delete submit
+        if (e.getSource() == submit && sqlType == false) {
+            if (numTxt.getText().length() > 0) {
+                deleteCount += 1;
+                delete += "(" + numS + "=" + "'" + numTxt.getText() + "')";
+            }
+
+            if (cssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + cssnS + "=" + "'" + cssnTxt.getText() + "')";
+                else
+                    delete += "(" + cssnS + "=" + "'" + cssnTxt.getText() + "')";
+
+            }
+
+            if (srssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + srssnS + "=" + "'" + srssnTxt.getText() + "')";
+                else
+                    delete += "(" + srssnS + "=" + "'" + srssnTxt.getText() + "')";
+            }
+
+            if (smssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + smssnS + "=" + "'" + smssnTxt.getText() + "')";
+                else
+                    delete += "(" + smssnS + "=" + "'" + smssnTxt.getText() + "')";
+            }
+
+            if (vinNumTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + vinNumS + "=" + "'" + vinNumTxt.getText() + "')";
+                else
+                    delete += "(" + vinNumS + "=" + "'" + vinNumTxt.getText() + "')";
+            }
+            if (typeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+                else
+                    delete += "(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+            }
+            delete += ";";
+            System.out.println(delete);
+            frame.setMain();
+
         }
 
     }

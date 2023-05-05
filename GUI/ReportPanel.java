@@ -12,19 +12,22 @@ public class ReportPanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel num = new JLabel();
     JTextField numTxt = new JTextField();
-    String numS = "";
+    String numS = "REPORT_NUM";
     JLabel type = new JLabel();
     JTextField typeTxt = new JTextField();
-    String typeS = "";
+    String typeS = "TYPE";
     JLabel ssn = new JLabel();
     JTextField ssnTxt = new JTextField();
-    String ssnS = "";
+    String ssnS = "FMAN_SSN";
     JLabel saleNum = new JLabel();
     JTextField saleNumTxt = new JTextField();
-    String saleNumS = "";
+    String saleNumS = "REPORT_SALE_NUM";
     JButton submit = new JButton();
     JButton cancle = new JButton();
-    String sqlssnment = "";
+    String insert = "INSERT INTO rkraft3db.DBP_REPORT(REPORT_NUM, TYPE, FMAN_SSN, REPORT_SALE_NUM)VALUES(";
+    String delete = "DELETE FROM rkraft3db.DBP_REPORT WHERE ";
+    boolean sqlType;
+    int deleteCount = 0;
 
     public ReportPanel() {
         // num elements
@@ -71,9 +74,10 @@ public class ReportPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
         this.main = main;
         this.frame = frame;
+        this.sqlType = sqlType;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -85,10 +89,46 @@ public class ReportPanel implements ActionListener {
         if (e.getSource() == cancle) {
             frame.setMain();
         }
-        if (e.getSource() == submit) {
-            System.out.println(
-                    numTxt.getText() + typeTxt.getText()
-                            + ssnTxt.getText() + saleNumTxt.getText());
+        // insert submit
+        if (e.getSource() == submit && sqlType == true) {
+            insert += "'" + numTxt.getText() + "', '" + typeTxt.getText() + "', '"
+                    + ssnTxt.getText() + "', '" + saleNumTxt.getText() + "');";
+            System.out.println(insert);
+            frame.setMain();
+        }
+        // delete submit
+        if (e.getSource() == submit && sqlType == false) {
+            if (numTxt.getText().length() > 0) {
+                deleteCount += 1;
+                delete += "(" + numS + "=" + "'" + numTxt.getText() + "')";
+            }
+
+            if (typeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+                else
+                    delete += "(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+            }
+
+            if (ssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+                else
+                    delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+
+            }
+
+            if (saleNumTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + saleNumS + "=" + "'" + saleNumTxt.getText() + "')";
+                else
+                    delete += "(" + saleNumS + "=" + "'" + saleNumTxt.getText() + "')";
+            }
+            delete += ";";
+            System.out.println(delete);
             frame.setMain();
         }
 

@@ -147,7 +147,6 @@ public class AppointmentPanel implements ActionListener {
             delete += ";";
             System.out.println(delete);
             frame.setMain();
-
         }
 
     }

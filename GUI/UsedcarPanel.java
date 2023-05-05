@@ -13,16 +13,19 @@ public class UsedcarPanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel vin = new JLabel();
     JTextField vinTxt = new JTextField();
-    String vinS = "";
+    String vinS = "USED_VIN";
     JLabel recal = new JLabel();
     JTextField recalTxt = new JTextField();
-    String recalS = "";
+    String recalS = "RECALL_STATMENT";
     JLabel reg = new JLabel();
     JTextField regTxt = new JTextField();
-    String regS = "";
+    String regS = "REGISTRATION_NUM";
     JButton submit = new JButton();
     JButton cancle = new JButton();
-    String insert = "";
+    String insert = "INSERT INTO rkraft3db.DBP_USED_CAR(USED_VIN, RECALL_STATMENT, REGISTRATION_NUM)VALUES(";
+    String delete = "DELETE FROM rkraft3db.DBP_USED_CAR WHERE ";
+    boolean sqlType;
+    int deleteCount = 0;
 
     public UsedcarPanel() {
         // vin elements
@@ -63,9 +66,10 @@ public class UsedcarPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
         this.main = main;
         this.frame = frame;
+        this.sqlType = sqlType;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -77,9 +81,36 @@ public class UsedcarPanel implements ActionListener {
         if (e.getSource() == cancle) {
             frame.setMain();
         }
-        if (e.getSource() == submit) {
-            System.out.println(vinTxt.getText() + recalTxt.getText()
-                    + regTxt.getText());
+        // insert submit
+        if (e.getSource() == submit && sqlType == true) {
+            insert += "'" + vinTxt.getText() + "', '" + recalTxt.getText() + "', '" + regTxt.getText() + "');";
+            System.out.println(insert);
+            frame.setMain();
+        }
+        // delete submit
+        if (e.getSource() == submit && sqlType == false) {
+            if (vinTxt.getText().length() > 0) {
+                deleteCount += 1;
+                delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
+            }
+            if (recalTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + recalS + "=" + "'" + recalTxt.getText() + "')";
+                else
+                    delete += "(" + recalS + "=" + "'" + recalTxt.getText() + "')";
+
+            }
+
+            if (regTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + regS + "=" + "'" + regTxt.getText() + "')";
+                else
+                    delete += "(" + regS + "=" + "'" + regTxt.getText() + "')";
+            }
+            delete += ";";
+            System.out.println(delete);
             frame.setMain();
         }
     }

@@ -12,19 +12,22 @@ public class UsedcarhistoryPanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel vin = new JLabel();
     JTextField vinTxt = new JTextField();
-    String vinS = "";
+    String vinS = "USED_CH_VIN";
     JLabel numA = new JLabel();
     JTextField numATxt = new JTextField();
-    String numAS = "";
+    String numAS = "NUM_ACIDENTS";
     JLabel numR = new JLabel();
     JTextField numRTxt = new JTextField();
-    String numRS = "";
+    String numRS = "NUM_REPAIRS";
     JLabel large = new JLabel();
     JTextField largeTxt = new JTextField();
-    String largeS = "";
+    String largeS = "LARGEST_PART_REPAIRED";
     JButton submit = new JButton();
     JButton cancle = new JButton();
-    String sqlssnment = "";
+    String insert = "INSERT INTO rkraft3db.DBP_USED_CAR_HISTORY(USED_CH_VIN, NUM_ACIDENTS, NUM_REPAIRS, LARGEST_PART_REPAIRED)VALUES(";
+    String delete = "DELETE FROM rkraft3db.DBP_USED_CAR_HISTORY WHERE ";
+    boolean sqlType;
+    int deleteCount = 0;
 
     public UsedcarhistoryPanel() {
         // vin elements
@@ -71,9 +74,10 @@ public class UsedcarhistoryPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
         this.main = main;
         this.frame = frame;
+        this.sqlType = sqlType;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -85,11 +89,48 @@ public class UsedcarhistoryPanel implements ActionListener {
         if (e.getSource() == cancle) {
             frame.setMain();
         }
-        if (e.getSource() == submit) {
-            System.out.println(
-                    vinTxt.getText() + numATxt.getText()
-                            + numRTxt.getText() + largeTxt.getText());
+        // insert submit
+        if (e.getSource() == submit && sqlType == true) {
+            insert += "'" + vinTxt.getText() + "', '" + numATxt.getText() + "', '"
+                    + numRTxt.getText() + "', '" + largeTxt.getText() + "');";
+            System.out.println(insert);
             frame.setMain();
+        }
+        // delete submit
+        if (e.getSource() == submit && sqlType == false) {
+            if (vinTxt.getText().length() > 0) {
+                deleteCount += 1;
+                delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
+            }
+
+            if (numATxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + numAS + "=" + "'" + numATxt.getText() + "')";
+                else
+                    delete += "(" + numAS + "=" + "'" + numATxt.getText() + "')";
+            }
+
+            if (numRTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + numRS + "=" + "'" + numRTxt.getText() + "')";
+                else
+                    delete += "(" + numRS + "=" + "'" + numRTxt.getText() + "')";
+
+            }
+
+            if (largeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + largeS + "=" + "'" + largeTxt.getText() + "')";
+                else
+                    delete += "(" + largeS + "=" + "'" + largeTxt.getText() + "')";
+            }
+            delete += ";";
+            System.out.println(delete);
+            frame.setMain();
+
         }
 
     }

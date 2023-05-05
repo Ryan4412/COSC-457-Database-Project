@@ -81,27 +81,27 @@ public class InsertPanel implements ActionListener {
             }
             if (select.getSelectedItem().equals("Report")) {
                 ReportPanel report = new ReportPanel();
-                report.sendMain(main, frame);
+                report.sendMain(main, frame, true);
             }
             if (select.getSelectedItem().equals("Sale")) {
                 SalePanel sale = new SalePanel();
-                sale.sendMain(main, frame);
+                sale.sendMain(main, frame, true);
             }
             if (select.getSelectedItem().equals("Sales Manager")) {
                 SalesmanagerPanel salesmanager = new SalesmanagerPanel();
-                salesmanager.sendMain(main, frame);
+                salesmanager.sendMain(main, frame, true);
             }
             if (select.getSelectedItem().equals("Sales Rep")) {
                 SalesrepresentativePanel salesrepresentative = new SalesrepresentativePanel();
-                salesrepresentative.sendMain(main, frame);
+                salesrepresentative.sendMain(main, frame, true);
             }
             if (select.getSelectedItem().equals("Used Car")) {
                 UsedcarPanel usedcar = new UsedcarPanel();
-                usedcar.sendMain(main, frame);
+                usedcar.sendMain(main, frame, true);
             }
             if (select.getSelectedItem().equals("Used Car History")) {
                 UsedcarhistoryPanel usedcarhistory = new UsedcarhistoryPanel();
-                usedcarhistory.sendMain(main, frame);
+                usedcarhistory.sendMain(main, frame, true);
             }
         }
     }
