@@ -29,7 +29,7 @@ public class AppointmentPanel implements ActionListener {
     JButton cancle = new JButton();
     String insert = "INSERT INTO rkraft3db.DBP_APPOINTMENT(APPOINTMENT_NUM, CUSTOMER_SSN, STATUS, TYPE, REP_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_APPOINTMENT WHERE ";
-    boolean sqlType = false;
+    boolean sqlType;
     int deleteCount = 0;
 
     public AppointmentPanel() {

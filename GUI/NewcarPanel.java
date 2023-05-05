@@ -13,13 +13,16 @@ public class NewcarPanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel vin = new JLabel();
     JTextField vinTxt = new JTextField();
-    String vinS = "";
+    String vinS = "VIN";
     JLabel dealerCertified = new JLabel();
     JTextField dealerCertifiedTxt = new JTextField();
-    String dealerCertifiedS = "";
+    String dealerCertifiedS = "DEALER_CERTIFIED";
     JButton submit = new JButton();
     JButton cancle = new JButton();
-    String insert = "";
+    String insert = "INSERT INTO rkraft3db.DBP_NEW_CAR(VIN, DEALER_CERTIFIED)VALUES(";
+    String delete = "DELETE FROM rkraft3db.DBP_NEW_CAR WHERE ";
+    boolean sqlType;
+    int deleteCount = 0;
 
     public NewcarPanel() {
         // vin elements
@@ -54,9 +57,10 @@ public class NewcarPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
         this.main = main;
         this.frame = frame;
+        this.sqlType = sqlType;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -68,8 +72,28 @@ public class NewcarPanel implements ActionListener {
         if (e.getSource() == cancle) {
             frame.setMain();
         }
-        if (e.getSource() == submit) {
-            System.out.println(vinTxt.getText() + dealerCertifiedTxt.getText());
+        // insert submit
+        if (e.getSource() == submit && sqlType == true) {
+            insert += "'" + vinTxt.getText() + "', '" + dealerCertifiedTxt.getText() + "');";
+            System.out.println(insert);
+            frame.setMain();
+        }
+        // delete submit
+        if (e.getSource() == submit && sqlType == false) {
+            if (vinTxt.getText().length() > 0) {
+                deleteCount += 1;
+                delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
+            }
+
+            if (dealerCertifiedTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "')";
+                else
+                    delete += "(" + dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "')";
+            }
+            delete += ";";
+            System.out.println(delete);
             frame.setMain();
         }
     }

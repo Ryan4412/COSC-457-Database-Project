@@ -49,35 +49,35 @@ public class DeletePanel implements ActionListener {
             }
             if (select.getSelectedItem().equals("Car")) {
                 CarPanel car = new CarPanel();
-                car.sendMain(main, frame);
+                car.sendMain(main, frame, false);
             }
             if (select.getSelectedItem().equals("Cosigner")) {
                 CosignerPanel cosigner = new CosignerPanel();
-                cosigner.sendMain(main, frame);
+                cosigner.sendMain(main, frame, false);
             }
             if (select.getSelectedItem().equals("Customer")) {
                 CustomerPanel customer = new CustomerPanel();
-                customer.sendMain(main, frame);
+                customer.sendMain(main, frame, false);
             }
             if (select.getSelectedItem().equals("Employee")) {
                 EmployeePanel employee = new EmployeePanel();
-                employee.sendMain(main, frame);
+                employee.sendMain(main, frame, false);
             }
             if (select.getSelectedItem().equals("Finance Manager")) {
                 FinancemanagerPanel financemanager = new FinancemanagerPanel();
-                financemanager.sendMain(main, frame);
+                financemanager.sendMain(main, frame, false);
             }
             if (select.getSelectedItem().equals("Janator")) {
                 JanatorPanel janator = new JanatorPanel();
-                janator.sendMain(main, frame);
+                janator.sendMain(main, frame, false);
             }
             if (select.getSelectedItem().equals("New Car")) {
                 NewcarPanel newcar = new NewcarPanel();
-                newcar.sendMain(main, frame);
+                newcar.sendMain(main, frame, false);
             }
             if (select.getSelectedItem().equals("Receptionist")) {
                 ReceptionistPanel receptionist = new ReceptionistPanel();
-                receptionist.sendMain(main, frame);
+                receptionist.sendMain(main, frame, false);
             }
             if (select.getSelectedItem().equals("Report")) {
                 ReportPanel report = new ReportPanel();

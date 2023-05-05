@@ -13,40 +13,43 @@ public class CosignerPanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel ssn = new JLabel();
     JTextField ssnTxt = new JTextField();
-    String ssnS = "";
+    String ssnS = "CO_SSN";
     JLabel first = new JLabel();
     JTextField firstTxt = new JTextField();
-    String firstS = "";
+    String firstS = "FIRST";
     JLabel minit = new JLabel();
     JTextField minitTxt = new JTextField();
-    String minitS = "";
+    String minitS = "MINIT";
     JLabel last = new JLabel();
     JTextField lastTxt = new JTextField();
-    String lastS = "";
+    String lastS = "LAST";
     JLabel occupation = new JLabel();
     JTextField occupationTxt = new JTextField();
-    String occupationS = "";
+    String occupationS = "OCCUPATION";
     JLabel creditScore = new JLabel();
     JTextField creditScoreTxt = new JTextField();
-    String creditScoreS = "";
+    String creditScoreS = "CREDIT_SCORE";
     JLabel gmi = new JLabel();
     JTextField gmiTxt = new JTextField();
-    String gmiS = "";
+    String gmiS = "GMI";
     JLabel recentEmployer = new JLabel();
     JTextField recentEmployerTxt = new JTextField();
-    String recentEmployerS = "";
+    String recentEmployerS = "RECENT_EMPLOYER";
     JLabel licenseNum = new JLabel();
     JTextField licenseNumTxt = new JTextField();
-    String licenseNumS = "";
+    String licenseNumS = "LICENSE_NUM";
     JLabel paymentType = new JLabel();
     JTextField paymentTypeTxt = new JTextField();
-    String paymentTypeS = "";
+    String paymentTypeS = "PAYMENT_TYPE";
     JLabel customerSSN = new JLabel();
     JTextField customerSSNTxt = new JTextField();
-    String customerSSNS = "";
+    String customerSSNS = "CUSTOMER_SSN";
     JButton submit = new JButton();
     JButton cancle = new JButton();
-    String insert = "";
+    String insert = "INSERT INTO rkraft3db.DBP_COSIGNER(CO_SSN, FIRST, MINIT, LAST, OCCUPATION, CREDIT_SCORE, GMI, RECENT_EMPLOYER, LICENSE_NUM, PAYMENT_TYPE, CUSTOMER_SSN)VALUES(";
+    String delete = "DELETE FROM rkraft3db.DBP_COSIGNER WHERE ";
+    boolean sqlType = false;
+    int deleteCount = 0;
 
     public CosignerPanel() {
         // ssn elements
@@ -135,9 +138,10 @@ public class CosignerPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
         this.main = main;
         this.frame = frame;
+        this.sqlType = sqlType;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -149,14 +153,106 @@ public class CosignerPanel implements ActionListener {
         if (e.getSource() == cancle) {
             frame.setMain();
         }
-        if (e.getSource() == submit) {
-            System.out.println(
-                    ssnTxt.getText() + firstTxt.getText()
-                            + minitTxt.getText() + occupationTxt.getText()
-                            + creditScoreTxt.getText() + gmiTxt.getText()
-                            + recentEmployerTxt.getText() + licenseNumTxt.getText()
-                            + paymentTypeTxt.getText() + customerSSNTxt.getText());
+        // insert submit
+        if (e.getSource() == submit && sqlType == true) {
+            insert += "'" + ssnTxt.getText() + "', '" + firstTxt.getText() + "', '" + minitTxt.getText() + "', '"
+                    + lastTxt.getText() + "', '" + occupationTxt.getText() + "', '" + creditScoreTxt.getText() + "', '"
+                    + gmiTxt.getText() + "', '" + recentEmployerTxt.getText() + "', '" + licenseNumTxt.getText()
+                    + "', '"
+                    + paymentTypeTxt.getText() + "', '" + customerSSNTxt.getText() + "');";
+            System.out.println(insert);
             frame.setMain();
+        }
+        // delete submit
+        if (e.getSource() == submit && sqlType == false) {
+            if (ssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+            }
+
+            if (firstTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+                else
+                    delete += "(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+
+            }
+
+            if (minitTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+                else
+                    delete += "(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+            }
+
+            if (lastTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+                else
+                    delete += "(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+            }
+
+            if (occupationTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + occupationS + "=" + "'" + occupationTxt.getText() + "')";
+                else
+                    delete += "(" + occupationS + "=" + "'" + occupationTxt.getText() + "')";
+            }
+            if (creditScoreTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + creditScoreS + "=" + "'" + creditScoreTxt.getText() + "')";
+                else
+                    delete += "(" + creditScoreS + "=" + "'" + creditScoreTxt.getText() + "')";
+            }
+
+            if (gmiTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + gmiS + "=" + "'" + gmiTxt.getText() + "')";
+                else
+                    delete += "(" + gmiS + "=" + "'" + gmiTxt.getText() + "')";
+
+            }
+
+            if (recentEmployerTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + recentEmployerS + "=" + "'" + recentEmployerTxt.getText() + "')";
+                else
+                    delete += "(" + recentEmployerS + "=" + "'" + recentEmployerTxt.getText() + "')";
+            }
+
+            if (licenseNumTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + licenseNumS + "=" + "'" + licenseNumTxt.getText() + "')";
+                else
+                    delete += "(" + licenseNumS + "=" + "'" + licenseNumTxt.getText() + "')";
+            }
+
+            if (paymentTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "')";
+                else
+                    delete += "(" + paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "')";
+            }
+            if (customerSSNTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + customerSSNS + "=" + "'" + customerSSNTxt.getText() + "')";
+                else
+                    delete += "(" + customerSSNS + "=" + "'" + customerSSNTxt.getText() + "')";
+            }
+            delete += ";";
+            System.out.println(delete);
+            frame.setMain();
+
         }
     }
 

@@ -13,31 +13,34 @@ public class EmployeePanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel ssn = new JLabel();
     JTextField ssnTxt = new JTextField();
-    String ssnS = "";
+    String ssnS = "SSN";
     JLabel first = new JLabel();
     JTextField firstTxt = new JTextField();
-    String firstS = "";
+    String firstS = "FIRST";
     JLabel minit = new JLabel();
     JTextField minitTxt = new JTextField();
-    String minitS = "";
+    String minitS = "MINIT";
     JLabel last = new JLabel();
     JTextField lastTxt = new JTextField();
-    String lastS = "";
+    String lastS = "LAST";
     JLabel jobType = new JLabel();
     JTextField jobTypeTxt = new JTextField();
-    String jobTypeS = "";
+    String jobTypeS = "JOB_TYPE";
     JLabel salary = new JLabel();
     JTextField salaryTxt = new JTextField();
-    String salaryS = "";
+    String salaryS = "SALARY";
     JLabel department = new JLabel();
     JTextField departmentTxt = new JTextField();
-    String departmentS = "";
+    String departmentS = "DEPARTMENT";
     JLabel address = new JLabel();
     JTextField addressTxt = new JTextField();
-    String addressS = "";
+    String addressS = "ADDRESS";
     JButton submit = new JButton();
     JButton cancle = new JButton();
-    String insert = "";
+    String insert = "INSERT INTO rkraft3db.DBP_EMPLOYEE(SSN, FIRST, MINIT, LAST, JOB_TYPE, SALARY, DEPARTMENT, ADDRESS)VALUES(";
+    String delete = "DELETE FROM rkraft3db.DBP_EMPLOYEE WHERE ";
+    boolean sqlType;
+    int deleteCount = 0;
 
     public EmployeePanel() {
         // ssn elements
@@ -108,9 +111,10 @@ public class EmployeePanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
         this.main = main;
         this.frame = frame;
+        this.sqlType = sqlType;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -124,11 +128,84 @@ public class EmployeePanel implements ActionListener {
         }
         if (e.getSource() == submit) {
             System.out.println(
-                    ssnTxt.getText() + firstTxt.getText()
-                            + minitTxt.getText() + lastTxt.getText()
-                            + jobTypeTxt.getText() + salaryTxt.getText()
-                            + departmentTxt.getText() + addressTxt.getText());
+                    addressTxt.getText());
             frame.setMain();
+        }
+        // insert submit
+        if (e.getSource() == submit && sqlType == true) {
+            insert += "'" + ssnTxt.getText() + "', '" + firstTxt.getText() + "', '" + minitTxt.getText() + "', '"
+                    + lastTxt.getText() + "', '" + jobTypeTxt.getText() + "', '" + salaryTxt.getText() + "', '"
+                    + departmentTxt.getText() + "', '" + addressTxt.getText() + "');";
+            System.out.println(insert);
+            frame.setMain();
+        }
+        // delete submit
+        if (e.getSource() == submit && sqlType == false) {
+            if (ssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+            }
+
+            if (firstTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+                else
+                    delete += "(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+
+            }
+
+            if (minitTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+                else
+                    delete += "(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+            }
+
+            if (lastTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+                else
+                    delete += "(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+            }
+
+            if (jobTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + jobTypeS + "=" + "'" + jobTypeTxt.getText() + "')";
+                else
+                    delete += "(" + jobTypeS + "=" + "'" + jobTypeTxt.getText() + "')";
+            }
+            if (salaryTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + salaryS + "=" + "'" + salaryTxt.getText() + "')";
+                else
+                    delete += "(" + salaryS + "=" + "'" + salaryTxt.getText() + "')";
+            }
+
+            if (departmentTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + departmentS + "=" + "'" + departmentTxt.getText() + "')";
+                else
+                    delete += "(" + departmentS + "=" + "'" + departmentTxt.getText() + "')";
+
+            }
+
+            if (addressTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + addressS + "=" + "'" + addressTxt.getText() + "')";
+                else
+                    delete += "(" + addressS + "=" + "'" + addressTxt.getText() + "')";
+            }
+            delete += ";";
+            System.out.println(delete);
+            frame.setMain();
+
         }
     }
 

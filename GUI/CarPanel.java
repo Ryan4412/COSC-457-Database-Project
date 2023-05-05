@@ -13,46 +13,49 @@ public class CarPanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel vin = new JLabel();
     JTextField vinTxt = new JTextField();
-    String vinS = "";
+    String vinS = "VIN";
     JLabel numDoors = new JLabel();
     JTextField numDoorsTxt = new JTextField();
-    String numDoorsS = "";
+    String numDoorsS = "NUM_DOORS";
     JLabel color = new JLabel();
     JTextField colorTxt = new JTextField();
-    String colorS = "";
+    String colorS = "COLOR";
     JLabel numSeats = new JLabel();
     JTextField numSeatsTxt = new JTextField();
-    String numSeatsS = "";
+    String numSeatsS = "NUM_SEATS";
     JLabel engineType = new JLabel();
     JTextField engineTypeTxt = new JTextField();
-    String engineTypeS = "";
+    String engineTypeS = "ENGINE_TYPE";
     JLabel numMiles = new JLabel();
     JTextField numMilesTxt = new JTextField();
-    String numMilesS = "";
+    String numMilesS = "NUM_MILES";
     JLabel mpg = new JLabel();
     JTextField mpgTxt = new JTextField();
-    String mpgS = "";
+    String mpgS = "MPG";
     JLabel tireType = new JLabel();
     JTextField tireTypeTxt = new JTextField();
-    String tireTypeS = "";
+    String tireTypeS = "TIRE_TYPE";
     JLabel msrp = new JLabel();
     JTextField msrpTxt = new JTextField();
-    String msrpS = "";
+    String msrpS = "MSRP";
     JLabel year = new JLabel();
     JTextField yearTxt = new JTextField();
-    String yearS = "";
+    String yearS = "YEAR";
     JLabel make = new JLabel();
     JTextField makeTxt = new JTextField();
-    String makeeS = "";
+    String makeS = "MAKE";
     JLabel model = new JLabel();
     JTextField modelTxt = new JTextField();
-    String modelS = "";
+    String modelS = "MODEL";
     JLabel status = new JLabel();
     JTextField statusTxt = new JTextField();
-    String statusS = "";
+    String statusS = "STATUS";
     JButton submit = new JButton();
     JButton cancle = new JButton();
-    String insert = "";
+    String insert = "INSERT INTO rkraft3db.DBP_CAR(VIN, NUM_DOORS, COLOR, NUM_SEATS, ENGINE_TYPE, NUM_MILES, MPG, TIRE_TYPE, MSRP, YEAR, MAKE, MODEL, STATUS)VALUES(";
+    String delete = "DELETE FROM rkraft3db.DBP_CAR WHERE ";
+    boolean sqlType;
+    int deleteCount = 0;
 
     public CarPanel() {
         // vin elements
@@ -153,9 +156,10 @@ public class CarPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
         this.main = main;
         this.frame = frame;
+        this.sqlType = sqlType;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -167,16 +171,122 @@ public class CarPanel implements ActionListener {
         if (e.getSource() == cancle) {
             frame.setMain();
         }
-        if (e.getSource() == submit) {
-            System.out.println(
-                    vinTxt.getText() + numDoorsTxt.getText()
-                            + colorTxt.getText() + numSeatsTxt.getText()
-                            + engineTypeTxt.getText() + numMilesTxt.getText()
-                            + mpgTxt.getText() + tireTypeTxt.getText()
-                            + msrpTxt.getText() + yearTxt.getText()
-                            + makeTxt.getText() + modelTxt.getText()
-                            + statusTxt.getText());
+        // insert submit
+        if (e.getSource() == submit && sqlType == true) {
+            insert += "'" + vinTxt.getText() + "', '" + numDoorsTxt.getText() + "', '" + colorTxt.getText() + "', '"
+                    + numSeatsTxt.getText() + "', '" + engineTypeTxt.getText() + "', '" + numMilesTxt.getText() + "', '"
+                    + mpgTxt.getText() + "', '" + tireTypeTxt.getText() + "', '" + msrpTxt.getText() + "', '"
+                    + yearTxt.getText() + "', '" + makeTxt.getText() + "', '" + modelTxt.getText()
+                    + "', '" + statusTxt.getText() + "');";
+            System.out.println(insert);
             frame.setMain();
+        }
+        // delete submit
+        if (e.getSource() == submit && sqlType == false) {
+            if (vinTxt.getText().length() > 0) {
+                deleteCount += 1;
+                delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
+            }
+
+            if (numDoorsTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + numDoorsS + "=" + "'" + numDoorsTxt.getText() + "')";
+                else
+                    delete += "(" + numDoorsS + "=" + "'" + numDoorsTxt.getText() + "')";
+
+            }
+
+            if (colorTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + colorS + "=" + "'" + colorTxt.getText() + "')";
+                else
+                    delete += "(" + colorS + "=" + "'" + colorTxt.getText() + "')";
+            }
+
+            if (numSeatsTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + numSeatsS + "=" + "'" + numSeatsTxt.getText() + "')";
+                else
+                    delete += "(" + numSeatsS + "=" + "'" + numSeatsTxt.getText() + "')";
+            }
+
+            if (engineTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + engineTypeS + "=" + "'" + engineTypeTxt.getText() + "')";
+                else
+                    delete += "(" + engineTypeS + "=" + "'" + engineTypeTxt.getText() + "')";
+            }
+            if (numMilesTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + numMilesS + "=" + "'" + numMilesTxt.getText() + "')";
+                else
+                    delete += "(" + numMilesS + "=" + "'" + numMilesTxt.getText() + "')";
+            }
+
+            if (mpgTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + mpgS + "=" + "'" + mpgTxt.getText() + "')";
+                else
+                    delete += "(" + mpgS + "=" + "'" + mpgTxt.getText() + "')";
+
+            }
+
+            if (tireTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + tireTypeS + "=" + "'" + tireTypeTxt.getText() + "')";
+                else
+                    delete += "(" + tireTypeS + "=" + "'" + tireTypeTxt.getText() + "')";
+            }
+
+            if (msrpTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + msrpS + "=" + "'" + msrpTxt.getText() + "')";
+                else
+                    delete += "(" + msrpS + "=" + "'" + msrpTxt.getText() + "')";
+            }
+
+            if (yearTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + yearS + "=" + "'" + yearTxt.getText() + "')";
+                else
+                    delete += "(" + yearS + "=" + "'" + yearTxt.getText() + "')";
+            }
+            if (makeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + makeS + "=" + "'" + makeTxt.getText() + "')";
+                else
+                    delete += "(" + makeS + "=" + "'" + makeTxt.getText() + "')";
+            }
+
+            if (modelTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + modelS + "=" + "'" + modelTxt.getText() + "')";
+                else
+                    delete += "(" + modelS + "=" + "'" + modelTxt.getText() + "')";
+            }
+
+            if (statusTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + statusS + "=" + "'" + statusTxt.getText() + "')";
+                else
+                    delete += "(" + statusS + "=" + "'" + statusTxt.getText() + "')";
+            }
+            delete += ";";
+            System.out.println(delete);
+            frame.setMain();
+
         }
     }
 
