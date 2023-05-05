@@ -6,7 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class InsertPanel implements ActionListener {
+public class DeletePanel implements ActionListener {
     JLabel prompt = new JLabel();
     JPanel panel = new JPanel();
     JPanel main;
@@ -17,10 +17,10 @@ public class InsertPanel implements ActionListener {
             "Receptionist", "Report", "Sale", "Sales Manager",
             "Sales Rep", "Used Car", "Used Car History" };
 
-    public InsertPanel() {
+    public DeletePanel() {
         select = new JComboBox<>(selectable);
         select.addActionListener(this);
-        prompt.setText("Please Select which data you would like to insert using the drop down menu");
+        prompt.setText("Please Select which data you would like to delete from using the drop down menu");
         panel.add(prompt);
         panel.add(select);
         panel.setVisible(true);
@@ -45,7 +45,7 @@ public class InsertPanel implements ActionListener {
 
             if (select.getSelectedItem().equals("Appointment")) {
                 AppointmentPanel appointment = new AppointmentPanel();
-                appointment.sendMain(main, frame, true);
+                appointment.sendMain(main, frame, false);
             }
             if (select.getSelectedItem().equals("Car")) {
                 CarPanel car = new CarPanel();

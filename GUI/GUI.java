@@ -59,11 +59,19 @@ public class GUI extends JFrame implements ActionListener {
         if (e.getSource() == insert) {
             insert();
         }
+        if (e.getSource() == delete) {
+            delete();
+        }
     }
 
     public void insert() {
         InsertPanel insertPanel = new InsertPanel();
         insertPanel.sendMain(main, this);
+    }
+
+    public void delete() {
+        DeletePanel deletePanel = new DeletePanel();
+        deletePanel.sendMain(main, this);
     }
 
     public void setMain() {

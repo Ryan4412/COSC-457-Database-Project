@@ -20,6 +20,9 @@ public class CosignerPanel implements ActionListener {
     JLabel minit = new JLabel();
     JTextField minitTxt = new JTextField();
     String minitS = "";
+    JLabel last = new JLabel();
+    JTextField lastTxt = new JTextField();
+    String lastS = "";
     JLabel occupation = new JLabel();
     JTextField occupationTxt = new JTextField();
     String occupationS = "";
@@ -59,33 +62,37 @@ public class CosignerPanel implements ActionListener {
         minit.setBounds(10, 70, 300, 25);
         minitTxt.setBounds(230, 70, 150, 25);
         // occupation elements
+        last.setText("Last name:");
+        last.setBounds(10, 100, 300, 25);
+        lastTxt.setBounds(230, 100, 150, 25);
+        // occupation elements
         occupation.setText("Occupation:");
-        occupation.setBounds(10, 100, 300, 25);
-        occupationTxt.setBounds(230, 100, 150, 25);
+        occupation.setBounds(10, 130, 300, 25);
+        occupationTxt.setBounds(230, 130, 150, 25);
         // creditScore_first
         creditScore.setText("Credit score:");
-        creditScore.setBounds(10, 130, 300, 25);
-        creditScoreTxt.setBounds(230, 130, 150, 25);
+        creditScore.setBounds(10, 160, 300, 25);
+        creditScoreTxt.setBounds(230, 160, 150, 25);
         // gmi elements
         gmi.setText("Gross monthly income:");
-        gmi.setBounds(10, 160, 300, 25);
-        gmiTxt.setBounds(230, 160, 150, 25);
+        gmi.setBounds(10, 190, 300, 25);
+        gmiTxt.setBounds(230, 190, 150, 25);
         // recentEmployer elements
         recentEmployer.setText("Most recent employer:");
-        recentEmployer.setBounds(10, 190, 300, 25);
-        recentEmployerTxt.setBounds(230, 190, 150, 25);
+        recentEmployer.setBounds(10, 220, 300, 25);
+        recentEmployerTxt.setBounds(230, 220, 150, 25);
         // licenseNum elements
         licenseNum.setText("License number:");
-        licenseNum.setBounds(10, 220, 300, 25);
-        licenseNumTxt.setBounds(230, 220, 150, 25);
+        licenseNum.setBounds(10, 250, 300, 25);
+        licenseNumTxt.setBounds(230, 250, 150, 25);
         // paymentType elements
         paymentType.setText("payment type:");
-        paymentType.setBounds(10, 250, 300, 25);
-        paymentTypeTxt.setBounds(230, 250, 150, 25);
+        paymentType.setBounds(10, 280, 300, 25);
+        paymentTypeTxt.setBounds(230, 280, 150, 25);
         // customerSSN elements
         customerSSN.setText("Customer ssn:");
-        customerSSN.setBounds(10, 280, 300, 25);
-        customerSSNTxt.setBounds(230, 280, 150, 25);
+        customerSSN.setBounds(10, 310, 300, 25);
+        customerSSNTxt.setBounds(230, 310, 150, 25);
         // submit button
         submit.addActionListener(this);
         submit.setText("Submit");
@@ -108,6 +115,8 @@ public class CosignerPanel implements ActionListener {
         panel.add(firstTxt);
         panel.add(minit);
         panel.add(minitTxt);
+        panel.add(last);
+        panel.add(lastTxt);
         panel.add(occupation);
         panel.add(occupationTxt);
         panel.add(creditScore);

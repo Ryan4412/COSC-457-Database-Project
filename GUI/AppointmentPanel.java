@@ -12,22 +12,25 @@ public class AppointmentPanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel num = new JLabel();
     JTextField numTxt = new JTextField();
-    String numS = "";
+    String numS = "APPOINTMENT_NUM";
     JLabel ssn = new JLabel();
     JTextField ssnTxt = new JTextField();
-    String ssnS = "";
+    String ssnS = "CUSTOMER_SSN";
     JLabel stat = new JLabel();
     JTextField statTxt = new JTextField();
-    String statS = "";
+    String statS = "STATUS";
     JLabel type = new JLabel();
     JTextField typeTxt = new JTextField();
-    String typeS = "";
+    String typeS = "TYPE";
     JLabel rep = new JLabel();
     JTextField repTxt = new JTextField();
-    String repS = "";
+    String repS = "REP_SSN";
     JButton submit = new JButton();
     JButton cancle = new JButton();
-    String sqlStatment = "";
+    String insert = "INSERT INTO rkraft3db.DBP_APPOINTMENT(APPOINTMENT_NUM, CUSTOMER_SSN, STATUS, TYPE, REP_SSN)VALUES(";
+    String delete = "DELETE FROM rkraft3db.DBP_APPOINTMENT WHERE ";
+    boolean sqlType = false;
+    int deleteCount = 0;
 
     public AppointmentPanel() {
         // Appointment_num elements
@@ -80,9 +83,10 @@ public class AppointmentPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
         this.main = main;
         this.frame = frame;
+        this.sqlType = sqlType;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -94,12 +98,56 @@ public class AppointmentPanel implements ActionListener {
         if (e.getSource() == cancle) {
             frame.setMain();
         }
-        if (e.getSource() == submit) {
-            System.out.println(
-                    numTxt.getText() + ssnTxt.getText()
-                            + statTxt.getText() + typeTxt.getText()
-                            + repTxt.getText());
+        // insert submit
+        if (e.getSource() == submit && sqlType == true) {
+            insert += "'" + numTxt.getText() + "', '" + ssnTxt.getText() + "', '" + statTxt.getText() + "', '"
+                    + typeTxt.getText() + "', '" + repTxt.getText() + "');";
+            System.out.println(insert);
             frame.setMain();
+        }
+        // delete submit
+        if (e.getSource() == submit && sqlType == false) {
+            if (numTxt.getText().length() > 0) {
+                deleteCount += 1;
+                delete += "(" + numS + "=" + "'" + numTxt.getText() + "')";
+            }
+
+            if (ssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+                else
+                    delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+
+            }
+
+            if (statTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + statS + "=" + "'" + statTxt.getText() + "')";
+                else
+                    delete += "(" + statS + "=" + "'" + statTxt.getText() + "')";
+            }
+
+            if (typeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+                else
+                    delete += "(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+            }
+
+            if (repTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    delete += "and(" + repS + "=" + "'" + repTxt.getText() + "')";
+                else
+                    delete += "(" + repS + "=" + "'" + repTxt.getText() + "')";
+            }
+            delete += ";";
+            System.out.println(delete);
+            frame.setMain();
+
         }
 
     }
