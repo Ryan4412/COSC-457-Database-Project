@@ -61,10 +61,11 @@ public class NewcarPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
+        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
