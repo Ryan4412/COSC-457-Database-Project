@@ -78,4 +78,27 @@ public class SqlObject {
 
     }
 
+    public void query() {
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            ArrayList<ArrayList> print = new ArrayList<ArrayList>();
+            while (rs.next()) {
+                ArrayList<String> row = new ArrayList<String>();
+                try {
+                    int columnIndex = 1;
+                    while (true) {
+                        row.add(rs.getString(columnIndex));
+                        columnIndex++;
+                    }
+                } catch (SQLException e) {
+                    print.add(row);
+                }
+            }
+            displayTable(print);
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+
 }
