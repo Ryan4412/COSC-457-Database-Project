@@ -19,9 +19,13 @@ public class NewcarPanel implements ActionListener {
     String dealerCertifiedS = "DEALER_CERTIFIED";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_NEW_CAR";
+    String [] column = { "NEW_VIN", "DEALER_CERTIFIED" };
     String insert = "INSERT INTO rkraft3db.DBP_NEW_CAR(VIN, DEALER_CERTIFIED)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_NEW_CAR WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_NEW_CAR WHERE ";
     boolean sqlType;
+    boolean sqlQuery;
     int deleteCount = 0;
 
     public NewcarPanel() {
@@ -75,8 +79,8 @@ public class NewcarPanel implements ActionListener {
         // insert submit
         if (e.getSource() == submit && sqlType == true) {
             insert += "'" + vinTxt.getText() + "', '" + dealerCertifiedTxt.getText() + "');";
-            System.out.println(insert);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
         if (e.getSource() == submit && sqlType == false) {
@@ -92,8 +96,25 @@ public class NewcarPanel implements ActionListener {
                 else
                     delete += "(" + dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "')";
             }
-            delete += ";";
-            System.out.println(delete);
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
+            frame.setMain();
+        }
+        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+            if (vinTxt.getText().length() > 0) {
+                deleteCount += 1;
+                queryS += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
+            }
+    
+            if (dealerCertifiedTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "')";
+                else
+                    queryS += "(" + dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "')";
+            }
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
+            query.query();
             frame.setMain();
         }
     }

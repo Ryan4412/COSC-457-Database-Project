@@ -20,7 +20,9 @@ public class ReceptionistPanel implements ActionListener {
     String[] column = { "R_SSN" };
     String insert = "INSERT INTO rkraft3db.DBP_RECEPTIONIST(R_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_RECEPTIONIST WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_RECEPTIONIST WHERE ";
     boolean sqlType;
+    boolean sqlQuery;
 
     public ReceptionistPanel() {
         // ssn elements
@@ -76,6 +78,13 @@ public class ReceptionistPanel implements ActionListener {
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
             delete += ";";
             SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
+        }
+        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+            if (ssnTxt.getText().length() > 0)
+                queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+            queryS += ";";
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.updateQuery();
         }
     }

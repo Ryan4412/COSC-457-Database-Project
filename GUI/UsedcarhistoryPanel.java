@@ -24,9 +24,13 @@ public class UsedcarhistoryPanel implements ActionListener {
     String largeS = "LARGEST_PART_REPAIRED";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_USED_CAR_HISTORY";
+    String [] column = { "USED_CH_VIN", "NUM_ACIDENTS", "NUM_REPAIRS", "LARGEST_PART_REPAIR" };
     String insert = "INSERT INTO rkraft3db.DBP_USED_CAR_HISTORY(USED_CH_VIN, NUM_ACIDENTS, NUM_REPAIRS, LARGEST_PART_REPAIRED)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_USED_CAR_HISTORY WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_USED_CAR_HISTORY WHERE ";
     boolean sqlType;
+    boolean sqlQuery;
     int deleteCount = 0;
 
     public UsedcarhistoryPanel() {
@@ -93,8 +97,8 @@ public class UsedcarhistoryPanel implements ActionListener {
         if (e.getSource() == submit && sqlType == true) {
             insert += "'" + vinTxt.getText() + "', '" + numATxt.getText() + "', '"
                     + numRTxt.getText() + "', '" + largeTxt.getText() + "');";
-            System.out.println(insert);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
         if (e.getSource() == submit && sqlType == false) {
@@ -127,10 +131,45 @@ public class UsedcarhistoryPanel implements ActionListener {
                 else
                     delete += "(" + largeS + "=" + "'" + largeTxt.getText() + "')";
             }
-            delete += ";";
-            System.out.println(delete);
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
             frame.setMain();
 
+        }
+        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+            if (vinTxt.getText().length() > 0) {
+                deleteCount += 1;
+                queryS += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
+            }
+    
+            if (numATxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + numAS + "=" + "'" + numATxt.getText() + "')";
+                else
+                    queryS += "(" + numAS + "=" + "'" + numATxt.getText() + "')";
+            }
+    
+            if (numRTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + numRS + "=" + "'" + numRTxt.getText() + "')";
+                else
+                    queryS += "(" + numRS + "=" + "'" + numRTxt.getText() + "')";
+    
+            }
+    
+            if (largeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + largeS + "=" + "'" + largeTxt.getText() + "')";
+                else
+                    queryS += "(" + largeS + "=" + "'" + largeTxt.getText() + "')";
+            }
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
+            query.query();
+            frame.setMain();
+    
         }
 
     }

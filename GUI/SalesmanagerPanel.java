@@ -16,9 +16,13 @@ public class SalesmanagerPanel implements ActionListener {
     String ssnS = "SM_SSN";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_SALES_MANAGER";
+    String [] column = { "SM_SSN" };
     String insert = "INSERT INTO rkraft3db.DBP_SALES_MANAGER(SM_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_SALES_MANAGER WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_SALES_MANAGER WHERE ";
     boolean sqlType;
+    boolean sqlQuery;
 
     public SalesmanagerPanel() {
         // ssn elements
@@ -65,15 +69,23 @@ public class SalesmanagerPanel implements ActionListener {
         // insert submit
         if (e.getSource() == submit && sqlType == true) {
             insert += "'" + ssnTxt.getText() + "');";
-            System.out.println(insert);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
         if (e.getSource() == submit && sqlType == false) {
             if (ssnTxt.getText().length() > 0)
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
-            delete += ";";
-            System.out.println(delete);
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
+            frame.setMain();
+        }
+        //
+        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+            if (ssnTxt.getText().length() > 0)
+                queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
+            query.query();
             frame.setMain();
         }
     }
