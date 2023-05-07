@@ -52,7 +52,7 @@ public class SalesrepresentativePanel implements ActionListener {
         submit.setVisible(true);
         // cancle button
         cancle.addActionListener(this);
-        cancle.setText("Cancle");
+        cancle.setText("Cancel");
         cancle.setBounds(415, 335, 80, 25);
         cancle.setFocusable(false);
         cancle.setVisible(true);
@@ -93,7 +93,7 @@ public class SalesrepresentativePanel implements ActionListener {
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false) {
+        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
             if (ssnTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
@@ -116,7 +116,6 @@ public class SalesrepresentativePanel implements ActionListener {
             }
             SqlObject query = new SqlObject(frame, main, delete, table, column);
             query.updateQuery();
-            frame.setMain();
         }
         //
         if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
@@ -142,7 +141,6 @@ public class SalesrepresentativePanel implements ActionListener {
             }
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
-            frame.setMain();
         }
     }
 

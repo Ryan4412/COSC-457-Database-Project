@@ -37,7 +37,7 @@ public class ReceptionistPanel implements ActionListener {
         submit.setVisible(true);
         // cancle button
         cancle.addActionListener(this);
-        cancle.setText("Cancle");
+        cancle.setText("Cancel");
         cancle.setBounds(415, 335, 80, 25);
         cancle.setFocusable(false);
         cancle.setVisible(true);
@@ -74,7 +74,7 @@ public class ReceptionistPanel implements ActionListener {
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false) {
+        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
             if (ssnTxt.getText().length() > 0)
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
             delete += ";";
@@ -86,7 +86,7 @@ public class ReceptionistPanel implements ActionListener {
                 queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
-            query.updateQuery();
+            query.query();
         }
     }
 

@@ -37,7 +37,7 @@ public class FinancemanagerPanel implements ActionListener {
         submit.setVisible(true);
         // cancle button
         cancle.addActionListener(this);
-        cancle.setText("Cancle");
+        cancle.setText("Cancel");
         cancle.setBounds(415, 335, 80, 25);
         cancle.setFocusable(false);
         cancle.setVisible(true);

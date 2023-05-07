@@ -41,7 +41,7 @@ public class EmployeePanel implements ActionListener {
     String[] column = { "SSN", "FIRST", "MINIT", "LAST", "JOB_TYPE", "SALARY", "DEPARTMENT", "ADDRESS" };
     String insert = "INSERT INTO rkraft3db.DBP_EMPLOYEE(SSN, FIRST, MINIT, LAST, JOB_TYPE, SALARY, DEPARTMENT, ADDRESS)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_EMPLOYEE WHERE ";
-    String queryS = "SELECT * FROM rkraft3db.DBP_CUSTOMER WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_EMPLOYEE WHERE ";
     boolean sqlType;
     boolean sqlQuery;
     int deleteCount = 0;
@@ -52,7 +52,7 @@ public class EmployeePanel implements ActionListener {
         ssn.setBounds(10, 10, 300, 25);
         ssnTxt.setBounds(230, 10, 150, 25);
         // first elements
-        first.setText("Firest name:");
+        first.setText("First name:");
         first.setBounds(10, 40, 300, 25); // add 30 to the JLabel y-value
         firstTxt.setBounds(230, 40, 150, 25); // add 30 to the JTextField y-value
         // minit elements
@@ -87,7 +87,7 @@ public class EmployeePanel implements ActionListener {
         submit.setVisible(true);
         // cancle button
         cancle.addActionListener(this);
-        cancle.setText("Cancle");
+        cancle.setText("Cancel");
         cancle.setBounds(415, 335, 80, 25);
         cancle.setFocusable(false);
         cancle.setVisible(true);
@@ -277,7 +277,7 @@ public class EmployeePanel implements ActionListener {
             }
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
-            query.updateQuery();
+            query.query();
 
         }
     }

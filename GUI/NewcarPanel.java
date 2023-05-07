@@ -13,7 +13,7 @@ public class NewcarPanel implements ActionListener {
     JPanel panel = new JPanel();
     JLabel vin = new JLabel();
     JTextField vinTxt = new JTextField();
-    String vinS = "VIN";
+    String vinS = "NEW_VIN";
     JLabel dealerCertified = new JLabel();
     JTextField dealerCertifiedTxt = new JTextField();
     String dealerCertifiedS = "DEALER_CERTIFIED";
@@ -21,7 +21,7 @@ public class NewcarPanel implements ActionListener {
     JButton cancle = new JButton();
     String table = "DBP_NEW_CAR";
     String [] column = { "NEW_VIN", "DEALER_CERTIFIED" };
-    String insert = "INSERT INTO rkraft3db.DBP_NEW_CAR(VIN, DEALER_CERTIFIED)VALUES(";
+    String insert = "INSERT INTO rkraft3db.DBP_NEW_CAR(NEW_VIN, DEALER_CERTIFIED)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_NEW_CAR WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_NEW_CAR WHERE ";
     boolean sqlType;
@@ -45,7 +45,7 @@ public class NewcarPanel implements ActionListener {
         submit.setVisible(true);
         // cancle button
         cancle.addActionListener(this);
-        cancle.setText("Cancle");
+        cancle.setText("Cancel");
         cancle.setBounds(415, 335, 80, 25);
         cancle.setFocusable(false);
         cancle.setVisible(true);
@@ -84,7 +84,7 @@ public class NewcarPanel implements ActionListener {
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false) {
+        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
             if (vinTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
@@ -99,7 +99,6 @@ public class NewcarPanel implements ActionListener {
             }
             SqlObject query = new SqlObject(frame, main, delete, table, column);
             query.updateQuery();
-            frame.setMain();
         }
         if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
             if (vinTxt.getText().length() > 0) {
@@ -116,7 +115,6 @@ public class NewcarPanel implements ActionListener {
             }
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
-            frame.setMain();
         }
     }
 

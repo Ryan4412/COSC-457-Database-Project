@@ -37,7 +37,7 @@ public class UsedcarPanel implements ActionListener {
         vin.setBounds(10, 10, 300, 25);
         vinTxt.setBounds(230, 10, 150, 25);
         // recal elements
-        recal.setText("Recal statment:");
+        recal.setText("Recall statment:");
         recal.setBounds(10, 50, 300, 25);
         recalTxt.setBounds(230, 50, 150, 25);
         // coreg elements
@@ -52,7 +52,7 @@ public class UsedcarPanel implements ActionListener {
         submit.setVisible(true);
         // cancle button
         cancle.addActionListener(this);
-        cancle.setText("Cancle");
+        cancle.setText("Cancel");
         cancle.setBounds(415, 335, 80, 25);
         cancle.setFocusable(false);
         cancle.setVisible(true);
@@ -93,7 +93,7 @@ public class UsedcarPanel implements ActionListener {
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false) {
+        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
             if (vinTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
@@ -116,7 +116,6 @@ public class UsedcarPanel implements ActionListener {
             }
             SqlObject query = new SqlObject(frame, main, delete, table, column);
             query.updateQuery();
-            frame.setMain();
         }
         if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
             if (vinTxt.getText().length() > 0) {
@@ -141,7 +140,6 @@ public class UsedcarPanel implements ActionListener {
             }
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
-            frame.setMain();
         }
     }
 
