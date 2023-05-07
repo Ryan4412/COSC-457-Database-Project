@@ -197,7 +197,6 @@ public class AppointmentPanel implements ActionListener {
             // System.out.println(queryS);
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
-            frame.setMain();
         }
 
     }

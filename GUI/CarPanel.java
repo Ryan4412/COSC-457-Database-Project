@@ -397,7 +397,7 @@ public class CarPanel implements ActionListener {
             }
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
-            query.updateQuery();
+            query.query();
 
         }
     }

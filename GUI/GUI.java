@@ -88,6 +88,9 @@ public class GUI extends JFrame implements ActionListener {
         if (e.getSource() == delete) {
             delete();
         }
+        if (e.getSource() == query) {
+            query();
+        }
     }
 
     public void insert() {
@@ -98,6 +101,11 @@ public class GUI extends JFrame implements ActionListener {
     public void delete() {
         DeletePanel deletePanel = new DeletePanel();
         deletePanel.sendMain(main, this);
+    }
+
+    public void query() {
+        QueryPanel queryPanel = new QueryPanel();
+        queryPanel.sendMain(main, this);
     }
 
     public void setMain() {
