@@ -31,6 +31,7 @@ public class AppointmentPanel implements ActionListener {
     String[] column = { "APPOINTMENT_NUM", "CUSTOMER_SSN", "STATUS", "TYPE", "REP_SSN" };
     String insert = "INSERT INTO rkraft3db.DBP_APPOINTMENT(APPOINTMENT_NUM, CUSTOMER_SSN, STATUS, TYPE, REP_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_APPOINTMENT WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_APPOINTMENT WHERE ";
     boolean sqlType;
     boolean sqlQuery;
     int deleteCount = 0;
@@ -153,49 +154,48 @@ public class AppointmentPanel implements ActionListener {
             // System.out.println(delete);
             SqlObject query = new SqlObject(frame, main, delete, table, column);
             query.updateQuery();
-            frame.setMain();
         }
         if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
             if (numTxt.getText().length() > 0) {
                 deleteCount += 1;
-                delete += "(" + numS + "=" + "'" + numTxt.getText() + "')";
+                queryS += "(" + numS + "=" + "'" + numTxt.getText() + "')";
             }
 
             if (ssnTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
-                    delete += "and(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+                    queryS += "and(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
                 else
-                    delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+                    queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
 
             }
 
             if (statTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
-                    delete += "and(" + statS + "=" + "'" + statTxt.getText() + "')";
+                    queryS += "and(" + statS + "=" + "'" + statTxt.getText() + "')";
                 else
-                    delete += "(" + statS + "=" + "'" + statTxt.getText() + "')";
+                    queryS += "(" + statS + "=" + "'" + statTxt.getText() + "')";
             }
 
             if (typeTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
-                    delete += "and(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+                    queryS += "and(" + typeS + "=" + "'" + typeTxt.getText() + "')";
                 else
-                    delete += "(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+                    queryS += "(" + typeS + "=" + "'" + typeTxt.getText() + "')";
             }
 
             if (repTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
-                    delete += "and(" + repS + "=" + "'" + repTxt.getText() + "')";
+                    queryS += "and(" + repS + "=" + "'" + repTxt.getText() + "')";
                 else
-                    delete += "(" + repS + "=" + "'" + repTxt.getText() + "')";
+                    queryS += "(" + repS + "=" + "'" + repTxt.getText() + "')";
             }
-            delete += ";";
-            // System.out.println(delete);
-            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            queryS += ";";
+            // System.out.println(queryS);
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
             frame.setMain();
         }

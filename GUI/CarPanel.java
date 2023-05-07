@@ -57,7 +57,9 @@ public class CarPanel implements ActionListener {
             "MSRP", "YEAR", "MAKE", "MODEL", "STATUS" };
     String insert = "INSERT INTO rkraft3db.DBP_CAR(VIN, NUM_DOORS, COLOR, NUM_SEATS, ENGINE_TYPE, NUM_MILES, MPG, TIRE_TYPE, MSRP, YEAR, MAKE, MODEL, STATUS)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_CAR WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_CAR WHERE ";
     boolean sqlType;
+    boolean sqlQuery;
     int deleteCount = 0;
 
     public CarPanel() {
@@ -159,10 +161,11 @@ public class CarPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
+        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -181,12 +184,11 @@ public class CarPanel implements ActionListener {
                     + mpgTxt.getText() + "', '" + tireTypeTxt.getText() + "', '" + msrpTxt.getText() + "', '"
                     + yearTxt.getText() + "', '" + makeTxt.getText() + "', '" + modelTxt.getText()
                     + "', '" + statusTxt.getText() + "');";
-            System.out.println(insert);
             SqlObject query = new SqlObject(frame, main, insert, table, column);
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false) {
+        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
             if (vinTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
@@ -289,6 +291,112 @@ public class CarPanel implements ActionListener {
             }
             delete += ";";
             SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
+
+        }
+        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+            if (vinTxt.getText().length() > 0) {
+                deleteCount += 1;
+                queryS += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
+            }
+
+            if (numDoorsTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + numDoorsS + "=" + "'" + numDoorsTxt.getText() + "')";
+                else
+                    queryS += "(" + numDoorsS + "=" + "'" + numDoorsTxt.getText() + "')";
+
+            }
+
+            if (colorTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + colorS + "=" + "'" + colorTxt.getText() + "')";
+                else
+                    queryS += "(" + colorS + "=" + "'" + colorTxt.getText() + "')";
+            }
+
+            if (numSeatsTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + numSeatsS + "=" + "'" + numSeatsTxt.getText() + "')";
+                else
+                    queryS += "(" + numSeatsS + "=" + "'" + numSeatsTxt.getText() + "')";
+            }
+
+            if (engineTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + engineTypeS + "=" + "'" + engineTypeTxt.getText() + "')";
+                else
+                    queryS += "(" + engineTypeS + "=" + "'" + engineTypeTxt.getText() + "')";
+            }
+            if (numMilesTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + numMilesS + "=" + "'" + numMilesTxt.getText() + "')";
+                else
+                    queryS += "(" + numMilesS + "=" + "'" + numMilesTxt.getText() + "')";
+            }
+
+            if (mpgTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + mpgS + "=" + "'" + mpgTxt.getText() + "')";
+                else
+                    queryS += "(" + mpgS + "=" + "'" + mpgTxt.getText() + "')";
+
+            }
+
+            if (tireTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + tireTypeS + "=" + "'" + tireTypeTxt.getText() + "')";
+                else
+                    queryS += "(" + tireTypeS + "=" + "'" + tireTypeTxt.getText() + "')";
+            }
+
+            if (msrpTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + msrpS + "=" + "'" + msrpTxt.getText() + "')";
+                else
+                    queryS += "(" + msrpS + "=" + "'" + msrpTxt.getText() + "')";
+            }
+
+            if (yearTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + yearS + "=" + "'" + yearTxt.getText() + "')";
+                else
+                    queryS += "(" + yearS + "=" + "'" + yearTxt.getText() + "')";
+            }
+            if (makeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + makeS + "=" + "'" + makeTxt.getText() + "')";
+                else
+                    queryS += "(" + makeS + "=" + "'" + makeTxt.getText() + "')";
+            }
+
+            if (modelTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + modelS + "=" + "'" + modelTxt.getText() + "')";
+                else
+                    queryS += "(" + modelS + "=" + "'" + modelTxt.getText() + "')";
+            }
+
+            if (statusTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + statusS + "=" + "'" + statusTxt.getText() + "')";
+                else
+                    queryS += "(" + statusS + "=" + "'" + statusTxt.getText() + "')";
+            }
+            queryS += ";";
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.updateQuery();
 
         }

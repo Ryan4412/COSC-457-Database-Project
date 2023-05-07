@@ -45,63 +45,63 @@ public class DeletePanel implements ActionListener {
 
             if (select.getSelectedItem().equals("Appointment")) {
                 AppointmentPanel appointment = new AppointmentPanel();
-                appointment.sendMain(main, frame, false);
+                appointment.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Car")) {
                 CarPanel car = new CarPanel();
-                car.sendMain(main, frame, false);
+                car.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Cosigner")) {
                 CosignerPanel cosigner = new CosignerPanel();
-                cosigner.sendMain(main, frame, false);
+                cosigner.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Customer")) {
                 CustomerPanel customer = new CustomerPanel();
-                customer.sendMain(main, frame, false);
+                customer.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Employee")) {
                 EmployeePanel employee = new EmployeePanel();
-                employee.sendMain(main, frame, false);
+                employee.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Finance Manager")) {
                 FinancemanagerPanel financemanager = new FinancemanagerPanel();
-                financemanager.sendMain(main, frame, false);
+                financemanager.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Janator")) {
                 JanatorPanel janator = new JanatorPanel();
-                janator.sendMain(main, frame, false);
+                janator.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("New Car")) {
                 NewcarPanel newcar = new NewcarPanel();
-                newcar.sendMain(main, frame, false);
+                newcar.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Receptionist")) {
                 ReceptionistPanel receptionist = new ReceptionistPanel();
-                receptionist.sendMain(main, frame, false);
+                receptionist.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Report")) {
                 ReportPanel report = new ReportPanel();
-                report.sendMain(main, frame, false);
+                report.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Sale")) {
                 SalePanel sale = new SalePanel();
-                sale.sendMain(main, frame, false);
+                sale.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Sales Manager")) {
                 SalesmanagerPanel salesmanager = new SalesmanagerPanel();
-                salesmanager.sendMain(main, frame, false);
+                salesmanager.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Sales Rep")) {
                 SalesrepresentativePanel salesrepresentative = new SalesrepresentativePanel();
-                salesrepresentative.sendMain(main, frame, false);
+                salesrepresentative.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Used Car")) {
                 UsedcarPanel usedcar = new UsedcarPanel();
-                usedcar.sendMain(main, frame, false);
+                usedcar.sendMain(main, frame, false, false);
             }
             if (select.getSelectedItem().equals("Used Car History")) {
                 UsedcarhistoryPanel usedcarhistory = new UsedcarhistoryPanel();
-                usedcarhistory.sendMain(main, frame, false);
+                usedcarhistory.sendMain(main, frame, false, false);
             }
         }
     }

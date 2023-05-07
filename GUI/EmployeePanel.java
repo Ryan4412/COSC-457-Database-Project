@@ -41,7 +41,9 @@ public class EmployeePanel implements ActionListener {
     String[] column = { "SSN", "FIRST", "MINIT", "LAST", "JOB_TYPE", "SALARY", "DEPARTMENT", "ADDRESS" };
     String insert = "INSERT INTO rkraft3db.DBP_EMPLOYEE(SSN, FIRST, MINIT, LAST, JOB_TYPE, SALARY, DEPARTMENT, ADDRESS)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_EMPLOYEE WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_CUSTOMER WHERE ";
     boolean sqlType;
+    boolean sqlQuery;
     int deleteCount = 0;
 
     public EmployeePanel() {
@@ -113,10 +115,11 @@ public class EmployeePanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
+        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -143,7 +146,7 @@ public class EmployeePanel implements ActionListener {
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false) {
+        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
             if (ssnTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
@@ -207,6 +210,73 @@ public class EmployeePanel implements ActionListener {
             }
             delete += ";";
             SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
+
+        }
+        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+            if (ssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+            }
+
+            if (firstTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+                else
+                    queryS += "(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+
+            }
+
+            if (minitTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+                else
+                    queryS += "(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+            }
+
+            if (lastTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+                else
+                    queryS += "(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+            }
+
+            if (jobTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + jobTypeS + "=" + "'" + jobTypeTxt.getText() + "')";
+                else
+                    queryS += "(" + jobTypeS + "=" + "'" + jobTypeTxt.getText() + "')";
+            }
+            if (salaryTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + salaryS + "=" + "'" + salaryTxt.getText() + "')";
+                else
+                    queryS += "(" + salaryS + "=" + "'" + salaryTxt.getText() + "')";
+            }
+
+            if (departmentTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + departmentS + "=" + "'" + departmentTxt.getText() + "')";
+                else
+                    queryS += "(" + departmentS + "=" + "'" + departmentTxt.getText() + "')";
+
+            }
+
+            if (addressTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + addressS + "=" + "'" + addressTxt.getText() + "')";
+                else
+                    queryS += "(" + addressS + "=" + "'" + addressTxt.getText() + "')";
+            }
+            queryS += ";";
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.updateQuery();
 
         }

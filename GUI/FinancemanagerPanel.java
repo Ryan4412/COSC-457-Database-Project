@@ -16,9 +16,13 @@ public class FinancemanagerPanel implements ActionListener {
     String ssnS = "FM_SSN";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_FINANCE_MANAGER";
+    String[] column = { "FM_SSN" };
     String insert = "INSERT INTO rkraft3db.DBP_FINANCE_MANAGER(FM_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_FINANCE_MANAGER WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_FINANCE_MANAGER WHERE ";
     boolean sqlType;
+    boolean sqlQuery;
 
     public FinancemanagerPanel() {
         // ssn elements
@@ -47,10 +51,11 @@ public class FinancemanagerPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
+        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -65,16 +70,23 @@ public class FinancemanagerPanel implements ActionListener {
         // insert submit
         if (e.getSource() == submit && sqlType == true) {
             insert += "'" + ssnTxt.getText() + "');";
-            System.out.println(insert);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false) {
+        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
             if (ssnTxt.getText().length() > 0)
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
             delete += ";";
-            System.out.println(delete);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
+        }
+        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+            if (ssnTxt.getText().length() > 0)
+                queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+            queryS += ";";
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
+            query.query();
         }
     }
 

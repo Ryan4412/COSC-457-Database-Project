@@ -45,63 +45,63 @@ public class InsertPanel implements ActionListener {
 
             if (select.getSelectedItem().equals("Appointment")) {
                 AppointmentPanel appointment = new AppointmentPanel();
-                appointment.sendMain(main, frame, true);
+                appointment.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Car")) {
                 CarPanel car = new CarPanel();
-                car.sendMain(main, frame, true);
+                car.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Cosigner")) {
                 CosignerPanel cosigner = new CosignerPanel();
-                cosigner.sendMain(main, frame, true);
+                cosigner.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Customer")) {
                 CustomerPanel customer = new CustomerPanel();
-                customer.sendMain(main, frame, true);
+                customer.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Employee")) {
                 EmployeePanel employee = new EmployeePanel();
-                employee.sendMain(main, frame, true);
+                employee.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Finance Manager")) {
                 FinancemanagerPanel financemanager = new FinancemanagerPanel();
-                financemanager.sendMain(main, frame, true);
+                financemanager.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Janator")) {
                 JanatorPanel janator = new JanatorPanel();
-                janator.sendMain(main, frame, true);
+                janator.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("New Car")) {
                 NewcarPanel newcar = new NewcarPanel();
-                newcar.sendMain(main, frame, true);
+                newcar.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Receptionist")) {
                 ReceptionistPanel receptionist = new ReceptionistPanel();
-                receptionist.sendMain(main, frame, true);
+                receptionist.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Report")) {
                 ReportPanel report = new ReportPanel();
-                report.sendMain(main, frame, true);
+                report.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Sale")) {
                 SalePanel sale = new SalePanel();
-                sale.sendMain(main, frame, true);
+                sale.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Sales Manager")) {
                 SalesmanagerPanel salesmanager = new SalesmanagerPanel();
-                salesmanager.sendMain(main, frame, true);
+                salesmanager.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Sales Rep")) {
                 SalesrepresentativePanel salesrepresentative = new SalesrepresentativePanel();
-                salesrepresentative.sendMain(main, frame, true);
+                salesrepresentative.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Used Car")) {
                 UsedcarPanel usedcar = new UsedcarPanel();
-                usedcar.sendMain(main, frame, true);
+                usedcar.sendMain(main, frame, true, false);
             }
             if (select.getSelectedItem().equals("Used Car History")) {
                 UsedcarhistoryPanel usedcarhistory = new UsedcarhistoryPanel();
-                usedcarhistory.sendMain(main, frame, true);
+                usedcarhistory.sendMain(main, frame, true, false);
             }
         }
     }

@@ -46,9 +46,14 @@ public class CosignerPanel implements ActionListener {
     String customerSSNS = "CUSTOMER_SSN";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_COSIGNER";
+    String[] column = { "CO_SSN", "FIRST", "MINIT", "LAST", "OCCUPATION", "CREDIT_SCORE", "GMI", "RECENT_EMPLOYER",
+            "LICENSE_NUM", "PAYMENT_TYPE", "CUSTOMER_SSN" };
     String insert = "INSERT INTO rkraft3db.DBP_COSIGNER(CO_SSN, FIRST, MINIT, LAST, OCCUPATION, CREDIT_SCORE, GMI, RECENT_EMPLOYER, LICENSE_NUM, PAYMENT_TYPE, CUSTOMER_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_COSIGNER WHERE ";
-    boolean sqlType = false;
+    String queryS = "SELECT * FROM rkraft3db.DBP_COSIGNER WHERE ";
+    boolean sqlType;
+    boolean sqlQuery;
     int deleteCount = 0;
 
     public CosignerPanel() {
@@ -138,10 +143,11 @@ public class CosignerPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
+        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -160,11 +166,11 @@ public class CosignerPanel implements ActionListener {
                     + gmiTxt.getText() + "', '" + recentEmployerTxt.getText() + "', '" + licenseNumTxt.getText()
                     + "', '"
                     + paymentTypeTxt.getText() + "', '" + customerSSNTxt.getText() + "');";
-            System.out.println(insert);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false) {
+        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
             if (ssnTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
@@ -250,8 +256,98 @@ public class CosignerPanel implements ActionListener {
                     delete += "(" + customerSSNS + "=" + "'" + customerSSNTxt.getText() + "')";
             }
             delete += ";";
-            System.out.println(delete);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
+
+        }
+        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+            if (ssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+            }
+
+            if (firstTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+                else
+                    queryS += "(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+
+            }
+
+            if (minitTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+                else
+                    queryS += "(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+            }
+
+            if (lastTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+                else
+                    queryS += "(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+            }
+
+            if (occupationTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + occupationS + "=" + "'" + occupationTxt.getText() + "')";
+                else
+                    queryS += "(" + occupationS + "=" + "'" + occupationTxt.getText() + "')";
+            }
+            if (creditScoreTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + creditScoreS + "=" + "'" + creditScoreTxt.getText() + "')";
+                else
+                    queryS += "(" + creditScoreS + "=" + "'" + creditScoreTxt.getText() + "')";
+            }
+
+            if (gmiTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + gmiS + "=" + "'" + gmiTxt.getText() + "')";
+                else
+                    queryS += "(" + gmiS + "=" + "'" + gmiTxt.getText() + "')";
+
+            }
+
+            if (recentEmployerTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + recentEmployerS + "=" + "'" + recentEmployerTxt.getText() + "')";
+                else
+                    queryS += "(" + recentEmployerS + "=" + "'" + recentEmployerTxt.getText() + "')";
+            }
+
+            if (licenseNumTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + licenseNumS + "=" + "'" + licenseNumTxt.getText() + "')";
+                else
+                    queryS += "(" + licenseNumS + "=" + "'" + licenseNumTxt.getText() + "')";
+            }
+
+            if (paymentTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "')";
+                else
+                    queryS += "(" + paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "')";
+            }
+            if (customerSSNTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + customerSSNS + "=" + "'" + customerSSNTxt.getText() + "')";
+                else
+                    queryS += "(" + customerSSNS + "=" + "'" + customerSSNTxt.getText() + "')";
+            }
+            queryS += ";";
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
+            query.query();
 
         }
     }

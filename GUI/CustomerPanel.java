@@ -43,9 +43,14 @@ public class CustomerPanel implements ActionListener {
     String paymentTypeS = "PAYMENT_TYPE";
     JButton submit = new JButton();
     JButton cancle = new JButton();
+    String table = "DBP_CUSTOMER";
+    String[] column = { "C_SSN", "FIRST", "MINIT", "LAST", "OCCUPATION", "CREDIT_SCORE", "GMI", "RECENT_EMPLOYER",
+            "LICENSE_NUM", "PAYMENT_TYPE" };
     String insert = "INSERT INTO rkraft3db.DBP_CUSTOMER(C_SSN, FIRST, MINIT, LAST, OCCUPATION, CREDIT_SCORE, GMI, RECENT_EMPLOYER, LICENSE_NUM, PAYMENT_TYPE)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_CUSTOMER WHERE ";
+    String queryS = "SELECT * FROM rkraft3db.DBP_CUSTOMER WHERE ";
     boolean sqlType;
+    boolean sqlQuery;
     int deleteCount = 0;
 
     public CustomerPanel() {
@@ -129,10 +134,11 @@ public class CustomerPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType) {
+    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
+        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -151,11 +157,11 @@ public class CustomerPanel implements ActionListener {
                     + gmiTxt.getText() + "', '" + recentEmployerTxt.getText() + "', '" + licenseNumTxt.getText()
                     + "', '"
                     + paymentTypeTxt.getText() + "');";
-            System.out.println(insert);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, insert, table, column);
+            query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false) {
+        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
             if (ssnTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
@@ -234,8 +240,91 @@ public class CustomerPanel implements ActionListener {
                     delete += "(" + paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "')";
             }
             delete += ";";
-            System.out.println(delete);
-            frame.setMain();
+            SqlObject query = new SqlObject(frame, main, delete, table, column);
+            query.updateQuery();
+
+        }
+        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+            if (ssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+            }
+
+            if (firstTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+                else
+                    queryS += "(" + firstS + "=" + "'" + firstTxt.getText() + "')";
+
+            }
+
+            if (minitTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+                else
+                    queryS += "(" + minitS + "=" + "'" + minitTxt.getText() + "')";
+            }
+
+            if (lastTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+                else
+                    queryS += "(" + lastS + "=" + "'" + lastTxt.getText() + "')";
+            }
+
+            if (occupationTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + occupationS + "=" + "'" + occupationTxt.getText() + "')";
+                else
+                    queryS += "(" + occupationS + "=" + "'" + occupationTxt.getText() + "')";
+            }
+            if (creditScoreTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + creditScoreS + "=" + "'" + creditScoreTxt.getText() + "')";
+                else
+                    queryS += "(" + creditScoreS + "=" + "'" + creditScoreTxt.getText() + "')";
+            }
+
+            if (gmiTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + gmiS + "=" + "'" + gmiTxt.getText() + "')";
+                else
+                    queryS += "(" + gmiS + "=" + "'" + gmiTxt.getText() + "')";
+
+            }
+
+            if (recentEmployerTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + recentEmployerS + "=" + "'" + recentEmployerTxt.getText() + "')";
+                else
+                    queryS += "(" + recentEmployerS + "=" + "'" + recentEmployerTxt.getText() + "')";
+            }
+
+            if (licenseNumTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + licenseNumS + "=" + "'" + licenseNumTxt.getText() + "')";
+                else
+                    queryS += "(" + licenseNumS + "=" + "'" + licenseNumTxt.getText() + "')";
+            }
+
+            if (paymentTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "')";
+                else
+                    queryS += "(" + paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "')";
+            }
+            queryS += ";";
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
+            query.query();
 
         }
     }
