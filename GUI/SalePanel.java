@@ -214,6 +214,11 @@ public class SalePanel implements ActionListener {
                 else
                     queryS += "(" + typeS + "=" + "'" + typeTxt.getText() + "')";
             }
+
+            if (deleteCount == 0) {
+                queryS = queryS.replace(" WHERE ", "");
+            }
+            
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
         }

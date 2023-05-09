@@ -138,6 +138,11 @@ public class UsedcarPanel implements ActionListener {
                 else
                     queryS += "(" + regS + "=" + "'" + regTxt.getText() + "')";
             }
+
+            if (deleteCount == 0) {
+                queryS = queryS.replace(" WHERE ", "");
+            }
+            
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
         }

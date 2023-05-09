@@ -165,6 +165,11 @@ public class ReportPanel implements ActionListener {
                 else
                     queryS += "(" + saleNumS + "=" + "'" + saleNumTxt.getText() + "')";
             }
+
+            if (deleteCount == 0) {
+                queryS = queryS.replace(" WHERE ", "");
+            }
+            
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
         }

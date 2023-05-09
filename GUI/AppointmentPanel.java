@@ -193,6 +193,11 @@ public class AppointmentPanel implements ActionListener {
                 else
                     queryS += "(" + repS + "=" + "'" + repTxt.getText() + "')";
             }
+
+            if (deleteCount == 0) {
+                queryS = queryS.replace(" WHERE ", "");
+            }
+            
             queryS += ";";
             // System.out.println(queryS);
             SqlObject query = new SqlObject(frame, main, queryS, table, column);

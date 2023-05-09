@@ -322,6 +322,11 @@ public class CustomerPanel implements ActionListener {
                 else
                     queryS += "(" + paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "')";
             }
+
+            if (deleteCount == 0) {
+                queryS = queryS.replace(" WHERE ", "");
+            }
+            
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();

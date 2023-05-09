@@ -139,6 +139,11 @@ public class SalesrepresentativePanel implements ActionListener {
                 else
                     queryS += "(" + comS + "=" + "'" + comTxt.getText() + "')";
             }
+
+            if (deleteCount == 0) {
+                queryS = queryS.replace(" WHERE ", "");
+            }
+            
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
         }

@@ -84,6 +84,10 @@ public class FinancemanagerPanel implements ActionListener {
         if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
             if (ssnTxt.getText().length() > 0)
                 queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+            
+            if (ssnTxt.getText().length() == 0) {
+                queryS = queryS.replace(" WHERE ", "");
+            }
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
