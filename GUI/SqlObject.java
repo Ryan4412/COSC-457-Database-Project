@@ -87,7 +87,8 @@ public class SqlObject {
         else {
             JLabel prompt = new JLabel();
             prompt.setText("The update, insert, or query was unsuccessful, please try again.");
-            
+            prompt.setBounds(0, 0, 200, 1000);
+
             main.removeAll();
             main.add(prompt);
             main.revalidate();

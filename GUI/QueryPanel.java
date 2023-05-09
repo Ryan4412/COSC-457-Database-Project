@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 public class QueryPanel implements ActionListener {
     JLabel prompt = new JLabel();
+    JLabel queryPrompt = new JLabel();
     JPanel panel = new JPanel();
     JPanel main;
     GUI frame;
@@ -16,13 +17,21 @@ public class QueryPanel implements ActionListener {
             "Employee", "Finance Manager", "Janator", "New Car",
             "Receptionist", "Report", "Sale", "Sales Manager",
             "Sales Rep", "Used Car", "Used Car History" };
+    JComboBox selectQuery;
+    String[] selectableQueries = { "Highest", "Average", "Who purchased what", "Who sold who"};
 
     public QueryPanel() {
         select = new JComboBox<>(selectable);
         select.addActionListener(this);
-        prompt.setText("Please Select which data you would like to query using the drop down menu");
+        prompt.setText("Please select which data you would like to query using the drop down menu");
+        selectQuery = new JComboBox<>(selectableQueries);
+        queryPrompt.setText("Other queries");
+        queryPrompt.setBounds(0, 50, 1000, 0);
+        selectQuery.setBounds(0, 50, 1000, 0);
         panel.add(prompt);
         panel.add(select);
+        panel.add(queryPrompt);
+        panel.add(selectQuery);
         panel.setVisible(true);
         panel.setBackground(new Color(200, 200, 200));
         panel.setLayout(new FlowLayout());
@@ -104,6 +113,20 @@ public class QueryPanel implements ActionListener {
                 usedcarhistory.sendMain(main, frame, false, true);
             }
         }
+        // if (e.getSource() == selectQuery) {
+        //     if (selectQuery.getSelectedItem().equals("Highest")) {
+                
+        //     }
+        //     if (selectQuery.getSelectedItem().equals("Average")) {
+                
+        //     }
+        //     if (selectQuery.getSelectedItem().equals("Who purchased what")) {
+
+        //     }
+        //     if (selectQuery.getSelectedItem().equals("Who sold who")) {
+
+        //     }
+        // }
     }
 
 }
