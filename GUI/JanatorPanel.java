@@ -21,8 +21,7 @@ public class JanatorPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_JANITOR(J_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_JANITOR WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_JANITOR WHERE ";
-    boolean sqlType;
-    boolean sqlQuery;
+    int sqlType;
 
     public JanatorPanel() {
         // ssn elements
@@ -51,11 +50,10 @@ public class JanatorPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
+    public void sendMain(JPanel main, GUI frame, int sqlType) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
-        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -68,23 +66,23 @@ public class JanatorPanel implements ActionListener {
             frame.setMain();
         }
         // insert submit
-        if (e.getSource() == submit && sqlType == true) {
+        if (e.getSource() == submit && sqlType == 1) {
             insert += "'" + ssnTxt.getText() + "');";
             SqlObject query = new SqlObject(frame, main, insert, table, column);
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
+        if (e.getSource() == submit && sqlType == 2) {
             if (ssnTxt.getText().length() > 0)
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
             delete += ";";
             SqlObject query = new SqlObject(frame, main, delete, table, column);
             query.updateQuery();
         }
-        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+        if (e.getSource() == submit && sqlType == 3) {
             if (ssnTxt.getText().length() > 0)
                 queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
-            
+
             if (ssnTxt.getText().length() == 0) {
                 queryS = queryS.replace(" WHERE ", "");
             }

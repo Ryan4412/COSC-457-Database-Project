@@ -42,8 +42,7 @@ public class EmployeePanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_EMPLOYEE(SSN, FIRST, MINIT, LAST, JOB_TYPE, SALARY, DEPARTMENT, ADDRESS)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_EMPLOYEE WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_EMPLOYEE WHERE ";
-    boolean sqlType;
-    boolean sqlQuery;
+    int sqlType;
     int deleteCount = 0;
 
     public EmployeePanel() {
@@ -115,11 +114,10 @@ public class EmployeePanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
+    public void sendMain(JPanel main, GUI frame, int sqlType) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
-        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -137,7 +135,7 @@ public class EmployeePanel implements ActionListener {
             frame.setMain();
         }
         // insert submit
-        if (e.getSource() == submit && sqlType == true) {
+        if (e.getSource() == submit && sqlType == 1) {
             insert += "'" + ssnTxt.getText() + "', '" + firstTxt.getText() + "', '" + minitTxt.getText() + "', '"
                     + lastTxt.getText() + "', '" + jobTypeTxt.getText() + "', '" + salaryTxt.getText() + "', '"
                     + departmentTxt.getText() + "', '" + addressTxt.getText() + "');";
@@ -146,7 +144,7 @@ public class EmployeePanel implements ActionListener {
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
+        if (e.getSource() == submit && sqlType == 2) {
             if (ssnTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
@@ -213,7 +211,7 @@ public class EmployeePanel implements ActionListener {
             query.updateQuery();
 
         }
-        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+        if (e.getSource() == submit && sqlType == 3) {
             if (ssnTxt.getText().length() > 0) {
                 deleteCount += 1;
                 queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";

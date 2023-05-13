@@ -13,9 +13,9 @@ public class AppointmentPanel implements ActionListener {
     JLabel num = new JLabel();
     JTextField numTxt = new JTextField();
     String numS = "APPOINTMENT_NUM";
-    JLabel ssn = new JLabel();
-    JTextField ssnTxt = new JTextField();
-    String ssnS = "CUSTOMER_SSN";
+    JLabel lname = new JLabel();
+    JTextField lnameTxt = new JTextField();
+    String lnameS = "POTENTIAL_CUST_LNAME";
     JLabel stat = new JLabel();
     JTextField statTxt = new JTextField();
     String statS = "STATUS";
@@ -28,12 +28,11 @@ public class AppointmentPanel implements ActionListener {
     JButton submit = new JButton();
     JButton cancle = new JButton();
     String table = "DBP_APPOINTMENT";
-    String[] column = { "APPOINTMENT_NUM", "CUSTOMER_SSN", "STATUS", "TYPE", "REP_SSN" };
-    String insert = "INSERT INTO rkraft3db.DBP_APPOINTMENT(APPOINTMENT_NUM, CUSTOMER_SSN, STATUS, TYPE, REP_SSN)VALUES(";
+    String[] column = { "APPOINTMENT_NUM", "STATUS", "TYPE", "REP_SSN", "POTENTIAL_CUST_LNAME" };
+    String insert = "INSERT INTO rkraft3db.DBP_APPOINTMENT(APPOINTMENT_NUM, STATUS, TYPE, REP_SSN, POTENTIAL_CUST_LNAME)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_APPOINTMENT WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_APPOINTMENT WHERE ";
-    boolean sqlType;
-    boolean sqlQuery;
+    int sqlType;
     int deleteCount = 0;
 
     public AppointmentPanel() {
@@ -42,9 +41,9 @@ public class AppointmentPanel implements ActionListener {
         num.setBounds(10, 10, 300, 25);
         numTxt.setBounds(230, 10, 150, 25);
         // Customer_ssn elements
-        ssn.setText("Customer SSN (123456789):");
-        ssn.setBounds(10, 50, 300, 25); // add 40 to the JLabel y-value
-        ssnTxt.setBounds(230, 50, 150, 25); // add 40 to the JTextField y-value
+        lname.setText("Potential customer last name (Smith):");
+        lname.setBounds(10, 50, 300, 25); // add 40 to the JLabel y-value
+        lnameTxt.setBounds(230, 50, 150, 25); // add 40 to the JTextField y-value
         // Status elements
         stat.setText("Status (Created, Initiated, Complete):");
         stat.setBounds(10, 90, 300, 25);
@@ -75,8 +74,8 @@ public class AppointmentPanel implements ActionListener {
         panel.setLayout(null);
         panel.add(num);
         panel.add(numTxt);
-        panel.add(ssn);
-        panel.add(ssnTxt);
+        panel.add(lname);
+        panel.add(lnameTxt);
         panel.add(stat);
         panel.add(statTxt);
         panel.add(type);
@@ -87,11 +86,10 @@ public class AppointmentPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
+    public void sendMain(JPanel main, GUI frame, int sqlType) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
-        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -104,26 +102,26 @@ public class AppointmentPanel implements ActionListener {
             frame.setMain();
         }
         // insert submit
-        if (e.getSource() == submit && sqlType == true) {
-            insert += "'" + numTxt.getText() + "', '" + ssnTxt.getText() + "', '" + statTxt.getText() + "', '"
-                    + typeTxt.getText() + "', '" + repTxt.getText() + "');";
-            // System.out.println(insert);
+        if (e.getSource() == submit && sqlType == 1) {
+            insert += "'" + numTxt.getText() + "', '" + statTxt.getText() + "', '"
+                    + typeTxt.getText() + "', '" + repTxt.getText() + "', '" + lnameTxt.getText() + "');";
+            System.out.println(insert);
             SqlObject query = new SqlObject(frame, main, insert, table, column);
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
+        if (e.getSource() == submit && sqlType == 2) {
             if (numTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + numS + "=" + "'" + numTxt.getText() + "')";
             }
 
-            if (ssnTxt.getText().length() > 0) {
+            if (lnameTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
-                    delete += "and(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+                    delete += "and(" + lnameS + "=" + "'" + lnameTxt.getText() + "')";
                 else
-                    delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+                    delete += "(" + lnameS + "=" + "'" + lnameTxt.getText() + "')";
 
             }
 
@@ -155,18 +153,18 @@ public class AppointmentPanel implements ActionListener {
             SqlObject query = new SqlObject(frame, main, delete, table, column);
             query.updateQuery();
         }
-        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+        if (e.getSource() == submit && sqlType == 3) {
             if (numTxt.getText().length() > 0) {
                 deleteCount += 1;
                 queryS += "(" + numS + "=" + "'" + numTxt.getText() + "')";
             }
 
-            if (ssnTxt.getText().length() > 0) {
+            if (lnameTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
-                    queryS += "and(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+                    queryS += "and(" + lnameS + "=" + "'" + lnameTxt.getText() + "')";
                 else
-                    queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
+                    queryS += "(" + lnameS + "=" + "'" + lnameTxt.getText() + "')";
 
             }
 
@@ -197,7 +195,7 @@ public class AppointmentPanel implements ActionListener {
             if (deleteCount == 0) {
                 queryS = queryS.replace(" WHERE ", "");
             }
-            
+
             queryS += ";";
             // System.out.println(queryS);
             SqlObject query = new SqlObject(frame, main, queryS, table, column);

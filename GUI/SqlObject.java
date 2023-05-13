@@ -55,7 +55,7 @@ public class SqlObject {
         } catch (SQLException e) {
             JLabel prompt = new JLabel();
             prompt.setText("The insert or delete was unsuccessful, please try again.");
-            
+
             main.removeAll();
             main.add(prompt);
             main.revalidate();
@@ -83,8 +83,7 @@ public class SqlObject {
             main.add(sp);
             main.revalidate();
             main.repaint();
-        }
-        else {
+        } else {
             JLabel prompt = new JLabel();
             prompt.setText("The update, insert, or query was unsuccessful, please try again.");
             prompt.setBounds(0, 0, 200, 1000);
@@ -118,7 +117,7 @@ public class SqlObject {
         } catch (SQLException e) {
             JLabel prompt = new JLabel();
             prompt.setText("The query was unsuccessful, please try again.");
-            
+
             main.removeAll();
             main.add(prompt);
             main.revalidate();

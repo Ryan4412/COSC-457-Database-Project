@@ -58,8 +58,7 @@ public class CarPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_CAR(VIN, NUM_DOORS, COLOR, NUM_SEATS, ENGINE_TYPE, NUM_MILES, MPG, TIRE_TYPE, MSRP, YEAR, MAKE, MODEL, STATUS)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_CAR WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_CAR WHERE ";
-    boolean sqlType;
-    boolean sqlQuery;
+    int sqlType;
     int deleteCount = 0;
 
     public CarPanel() {
@@ -161,11 +160,10 @@ public class CarPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
+    public void sendMain(JPanel main, GUI frame, int sqlType) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
-        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -178,7 +176,7 @@ public class CarPanel implements ActionListener {
             frame.setMain();
         }
         // insert submit
-        if (e.getSource() == submit && sqlType == true) {
+        if (e.getSource() == submit && sqlType == 1) {
             insert += "'" + vinTxt.getText() + "', '" + numDoorsTxt.getText() + "', '" + colorTxt.getText() + "', '"
                     + numSeatsTxt.getText() + "', '" + engineTypeTxt.getText() + "', '" + numMilesTxt.getText() + "', '"
                     + mpgTxt.getText() + "', '" + tireTypeTxt.getText() + "', '" + msrpTxt.getText() + "', '"
@@ -188,7 +186,7 @@ public class CarPanel implements ActionListener {
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
+        if (e.getSource() == submit && sqlType == 2) {
             if (vinTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
@@ -294,7 +292,7 @@ public class CarPanel implements ActionListener {
             query.updateQuery();
 
         }
-        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+        if (e.getSource() == submit && sqlType == 3) {
             if (vinTxt.getText().length() > 0) {
                 deleteCount += 1;
                 queryS += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
@@ -399,7 +397,7 @@ public class CarPanel implements ActionListener {
             if (deleteCount == 0) {
                 queryS = queryS.replace(" WHERE ", "");
             }
-            
+
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
