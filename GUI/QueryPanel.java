@@ -132,15 +132,14 @@ public class QueryPanel implements ActionListener {
                         "DBP_SALES_REP", column);
                 query.query();
             }
-            if (selectQuery.getSelectedItem().equals("Average")) {
-
+            if (selectQuery.getSelectedItem().equals("Sales representative commission (highest to lowest)")) {
+                String[] column = { "SR_SSN", "NO_CAR_SALES", "COMMISSION" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT* FROM rkraft3db.DBP_SALES_REP ORDER BY COMMISSION DESC;",
+                        "DBP_SALES_REP", column);
+                query.query();
             }
-            if (selectQuery.getSelectedItem().equals("Who purchased what")) {
 
-            }
-            if (selectQuery.getSelectedItem().equals("Who sold who")) {
-
-            }
         }
     }
 
