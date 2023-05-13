@@ -24,6 +24,8 @@ public class NewcarPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_NEW_CAR(NEW_VIN, DEALER_CERTIFIED)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_NEW_CAR WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_NEW_CAR WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_NEW_CAR SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -107,7 +109,7 @@ public class NewcarPanel implements ActionListener {
             if (dealerCertifiedTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
-                    queryS += "and(" + dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "')";
+                    queryS += "," + dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "')";
                 else
                     queryS += "(" + dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "')";
             }
@@ -118,6 +120,25 @@ public class NewcarPanel implements ActionListener {
 
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+        }
+        // update
+        if (e.getSource() == submit && sqlType == 4) {
+            if (vinTxt.getText().length() > 0) {
+                where += "(" + vinS + "=" + "'" + vinTxt.getText() + "');";
+            }
+
+            if (dealerCertifiedTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "'";
+                else
+                    updateS += dealerCertifiedS + "=" + "'" + dealerCertifiedTxt.getText() + "'";
+            }
+            updateS += where;
+
+            System.out.println(updateS);
+            SqlObject query = new SqlObject(frame, main, updateS, table, column);
+            query.updateQuery();
         }
     }
 

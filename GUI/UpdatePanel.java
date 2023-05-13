@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 public class UpdatePanel implements ActionListener {
     JLabel prompt = new JLabel();
+    JLabel prompt2 = new JLabel();
     JPanel panel = new JPanel();
     JPanel main;
     GUI frame;
@@ -20,8 +21,11 @@ public class UpdatePanel implements ActionListener {
     public UpdatePanel() {
         select = new JComboBox<>(selectable);
         select.addActionListener(this);
-        prompt.setText("Please Select which data you would like to delete from using the drop down menu");
+        prompt.setText(
+                "Please select which data you would like to update from using");
+        prompt2.setText("the drop down menu then enter in the first box what thing to update");
         panel.add(prompt);
+        panel.add(prompt2);
         panel.add(select);
         panel.setVisible(true);
         panel.setBackground(new Color(200, 200, 200));

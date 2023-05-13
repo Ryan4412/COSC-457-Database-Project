@@ -21,6 +21,8 @@ public class SalesmanagerPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_SALES_MANAGER(SM_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_SALES_MANAGER WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_SALES_MANAGER WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_MANAGER SET ";
+    String where = " WHERE ";
     int sqlType;
 
     public SalesmanagerPanel() {

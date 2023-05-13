@@ -21,6 +21,8 @@ public class ReceptionistPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_RECEPTIONIST(R_SSN)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_RECEPTIONIST WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_RECEPTIONIST WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_RECEPTIONIST SET ";
+    String where = " WHERE ";
     int sqlType;
 
     public ReceptionistPanel() {
@@ -79,6 +81,7 @@ public class ReceptionistPanel implements ActionListener {
             SqlObject query = new SqlObject(frame, main, delete, table, column);
             query.updateQuery();
         }
+        // query
         if (e.getSource() == submit && sqlType == 3) {
             if (ssnTxt.getText().length() > 0)
                 queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
@@ -89,6 +92,18 @@ public class ReceptionistPanel implements ActionListener {
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+        }
+        // update
+        if (e.getSource() == submit && sqlType == 4) {
+            if (ssnTxt.getText().length() > 0)
+                where += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "');";
+
+            if (ssnTxt.getText().length() == 0) {
+                updateS = updateS.replace(" WHERE ", "");
+            }
+            updateS += ";";
+            SqlObject query = new SqlObject(frame, main, updateS, table, column);
+            query.updateQuery();
         }
     }
 

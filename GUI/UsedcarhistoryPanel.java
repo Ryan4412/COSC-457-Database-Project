@@ -29,6 +29,8 @@ public class UsedcarhistoryPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_USED_CAR_HISTORY(USED_CH_VIN, NUM_ACIDENTS, NUM_REPAIRS, LARGEST_PART_REPAIRED)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_USED_CAR_HISTORY WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_USED_CAR_HISTORY WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_USED_CAR_HISTORY SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -171,6 +173,42 @@ public class UsedcarhistoryPanel implements ActionListener {
 
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+
+        }
+
+        if (e.getSource() == submit && sqlType == 4) {
+            if (vinTxt.getText().length() > 0) {
+                where += "(" + vinS + "=" + "'" + vinTxt.getText() + "');";
+            }
+
+            if (numATxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + numAS + "=" + "'" + numATxt.getText() + "'";
+                else
+                    updateS += numAS + "=" + "'" + numATxt.getText() + "'";
+            }
+
+            if (numRTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + numRS + "=" + "'" + numRTxt.getText() + "'";
+                else
+                    updateS += numRS + "=" + "'" + numRTxt.getText() + "'";
+
+            }
+
+            if (largeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + largeS + "=" + "'" + largeTxt.getText() + "'";
+                else
+                    updateS += largeS + "=" + "'" + largeTxt.getText() + "'";
+            }
+            updateS += where;
+            System.out.println(updateS);
+            SqlObject query = new SqlObject(frame, main, updateS, table, column);
+            query.updateQuery();
 
         }
 

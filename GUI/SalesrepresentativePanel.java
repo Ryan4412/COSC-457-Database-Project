@@ -27,6 +27,8 @@ public class SalesrepresentativePanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_SALES_REP(SR_SSN, NO_CAR_SALES, COMMISSION)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_SALES_REP WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_SALES_REP WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_SALES_REP SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -144,6 +146,33 @@ public class SalesrepresentativePanel implements ActionListener {
 
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+        }
+
+        if (e.getSource() == submit && sqlType == 4) {
+            if (ssnTxt.getText().length() > 0) {
+                where += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "');";
+            }
+            if (numTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + numS + "=" + "'" + numTxt.getText() + "'";
+                else
+                    updateS += numS + "=" + "'" + numTxt.getText() + "'";
+
+            }
+
+            if (comTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + comS + "=" + "'" + comTxt.getText() + "'";
+                else
+                    updateS += comS + "=" + "'" + comTxt.getText() + "'";
+            }
+
+            updateS += where;
+            System.out.println(updateS);
+            SqlObject query = new SqlObject(frame, main, updateS, table, column);
+            query.updateQuery();
         }
     }
 

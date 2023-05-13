@@ -35,6 +35,8 @@ public class SalePanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_SALE(SALE_NUM, CUST_SSN, SREP_SSN, SMAN_SSN, SALE_VIN, TYPE)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_SALE WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_SALE WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_SALE SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -219,6 +221,111 @@ public class SalePanel implements ActionListener {
 
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+        }
+
+        if (e.getSource() == submit && sqlType == 4) {
+            if (numTxt.getText().length() > 0) {
+                deleteCount += 1;
+                where += "(" + numS + "=" + "'" + numTxt.getText() + "');";
+            }
+
+            if (cssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + cssnS + "=" + "'" + cssnTxt.getText() + "')";
+                else
+                    queryS += "(" + cssnS + "=" + "'" + cssnTxt.getText() + "')";
+
+            }
+
+            if (srssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + srssnS + "=" + "'" + srssnTxt.getText() + "')";
+                else
+                    queryS += "(" + srssnS + "=" + "'" + srssnTxt.getText() + "')";
+            }
+
+            if (smssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + smssnS + "=" + "'" + smssnTxt.getText() + "')";
+                else
+                    queryS += "(" + smssnS + "=" + "'" + smssnTxt.getText() + "')";
+            }
+
+            if (vinNumTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + vinNumS + "=" + "'" + vinNumTxt.getText() + "')";
+                else
+                    queryS += "(" + vinNumS + "=" + "'" + vinNumTxt.getText() + "')";
+            }
+            if (typeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    queryS += "and(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+                else
+                    queryS += "(" + typeS + "=" + "'" + typeTxt.getText() + "')";
+            }
+
+            if (deleteCount == 0) {
+                queryS = queryS.replace(" WHERE ", "");
+            }
+
+            SqlObject query = new SqlObject(frame, main, queryS, table, column);
+            query.query();
+        }
+
+        if (e.getSource() == submit && sqlType == 4) {
+            if (numTxt.getText().length() > 0) {
+                where += "(" + numS + "=" + "'" + numTxt.getText() + "');";
+            }
+
+            if (cssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + cssnS + "=" + "'" + cssnTxt.getText() + "'";
+                else
+                    updateS += cssnS + "=" + "'" + cssnTxt.getText() + "'";
+
+            }
+
+            if (srssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + srssnS + "=" + "'" + srssnTxt.getText() + "'";
+                else
+                    updateS += srssnS + "=" + "'" + srssnTxt.getText() + "'";
+            }
+
+            if (smssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + smssnS + "=" + "'" + smssnTxt.getText() + "'";
+                else
+                    updateS += smssnS + "=" + "'" + smssnTxt.getText() + "'";
+            }
+
+            if (vinNumTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + vinNumS + "=" + "'" + vinNumTxt.getText() + "'";
+                else
+                    updateS += vinNumS + "=" + "'" + vinNumTxt.getText() + "'";
+            }
+            if (typeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + typeS + "=" + "'" + typeTxt.getText() + "'";
+                else
+                    updateS += typeS + "=" + "'" + typeTxt.getText() + "'";
+            }
+
+            updateS += where;
+            System.out.println(updateS);
+            SqlObject query = new SqlObject(frame, main, updateS, table, column);
+            query.updateQuery();
         }
 
     }

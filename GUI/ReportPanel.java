@@ -29,6 +29,8 @@ public class ReportPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_REPORT(REPORT_NUM, TYPE, FMAN_SSN, REPORT_SALE_NUM)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_REPORT WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_REPORT WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_REPORT SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -170,6 +172,42 @@ public class ReportPanel implements ActionListener {
 
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+        }
+
+        if (e.getSource() == submit && sqlType == 4) {
+            if (numTxt.getText().length() > 0) {
+                where += "(" + numS + "=" + "'" + numTxt.getText() + "');";
+            }
+
+            if (typeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + typeS + "=" + "'" + typeTxt.getText() + "'";
+                else
+                    updateS += typeS + "=" + "'" + typeTxt.getText() + "'";
+            }
+
+            if (ssnTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + ssnS + "=" + "'" + ssnTxt.getText() + "'";
+                else
+                    updateS += ssnS + "=" + "'" + ssnTxt.getText() + "'";
+
+            }
+
+            if (saleNumTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + saleNumS + "=" + "'" + saleNumTxt.getText() + "'";
+                else
+                    updateS += saleNumS + "=" + "'" + saleNumTxt.getText() + "'";
+            }
+
+            updateS += where;
+            System.out.println(updateS);
+            SqlObject query = new SqlObject(frame, main, updateS, table, column);
+            query.updateQuery();
         }
 
     }

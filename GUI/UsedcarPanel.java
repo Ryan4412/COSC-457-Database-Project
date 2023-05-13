@@ -27,6 +27,8 @@ public class UsedcarPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_USED_CAR(USED_VIN, RECALL_STATMENT, REGISTRATION_NUM)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_USED_CAR WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_USED_CAR WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_USED_CAR SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -143,6 +145,33 @@ public class UsedcarPanel implements ActionListener {
 
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+        }
+
+        if (e.getSource() == submit && sqlType == 4) {
+            if (vinTxt.getText().length() > 0) {
+                where += "(" + vinS + "=" + "'" + vinTxt.getText() + "');";
+            }
+            if (recalTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + recalS + "=" + "'" + recalTxt.getText() + "'";
+                else
+                    updateS += recalS + "=" + "'" + recalTxt.getText() + "'";
+
+            }
+
+            if (regTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + regS + "=" + "'" + regTxt.getText() + "'";
+                else
+                    updateS += regS + "=" + "'" + regTxt.getText() + "'";
+            }
+
+            updateS += where;
+            System.out.println(updateS);
+            SqlObject query = new SqlObject(frame, main, updateS, table, column);
+            query.updateQuery();
         }
     }
 
