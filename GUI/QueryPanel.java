@@ -18,15 +18,25 @@ public class QueryPanel implements ActionListener {
             "Receptionist", "Report", "Sale", "Sales Manager",
             "Sales Rep", "Used Car", "Used Car History" };
     JComboBox selectQuery;
-    String[] selectableQueries = { "Average commission of sales reps", "Average", "Who purchased what",
-            "Who sold who" };
+    String[] selectableQueries = { "Average commission of sales representative",
+            "Sales representative commission (highest to lowest)",
+            "Sales representative car sales (highest to lowest)", "Average salary of sales manager",
+            "Sales manager car sales (highest to lowest)",
+            "Used Car MPG (highest to lowest)", "New Car MPG (highest to lowest)", "All Car MPG (highest to lowest)",
+            "Average customer GMI",
+            "Customer GMI (highest to lowest)", "Average customer credit score",
+            "Customer credic score (highest to lowest)", "Average cosigner GMI",
+            "Cosigner GMI (highest to lowest)", "Average cosigner credit score",
+            "Cosigner credit score (highest to lowest)" };
 
     public QueryPanel() {
         select = new JComboBox<>(selectable);
         select.addActionListener(this);
         prompt.setText("Please select which data you would like to query using the drop down menu");
         selectQuery = new JComboBox<>(selectableQueries);
-        queryPrompt.setText("Other queries");
+        queryPrompt.setText(
+                "                                                        Other queries                                                        "); // space
+                                                                                                                                                  // needed
         selectQuery.addActionListener(this);
         queryPrompt.setBounds(0, 50, 1000, 0);
         selectQuery.setBounds(0, 50, 1000, 0);
@@ -117,9 +127,9 @@ public class QueryPanel implements ActionListener {
         }
         if (e.getSource() == selectQuery) {
             if (selectQuery.getSelectedItem().equals("Average commission of sales reps")) {
-                // String[] column = { "COMMISSION" };
+                String[] column = { "COMMISSION" };
                 SqlObject query = new SqlObject(frame, main, "SELECT AVG(COMMISSION) FROM rkraft3db.DBP_SALES_REP;",
-                        "DBP_SALES_REP", null);
+                        "DBP_SALES_REP", column);
                 query.query();
             }
             if (selectQuery.getSelectedItem().equals("Average")) {
