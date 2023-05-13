@@ -32,6 +32,8 @@ public class AppointmentPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_APPOINTMENT(APPOINTMENT_NUM, STATUS, TYPE, REP_SSN, POTENTIAL_CUST_LNAME)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_APPOINTMENT WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_APPOINTMENT WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_APPOINTMENT SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -200,6 +202,50 @@ public class AppointmentPanel implements ActionListener {
             // System.out.println(queryS);
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+        }
+
+        // update submit
+        if (e.getSource() == submit && sqlType == 4) {
+            if (numTxt.getText().length() > 0) {
+                where += "(" + numS + "=" + "'" + numTxt.getText() + "');";
+            }
+
+            if (lnameTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + lnameS + "=" + "'" + lnameTxt.getText() + "'";
+                else
+                    updateS += lnameS + "=" + "'" + lnameTxt.getText() + "'";
+
+            }
+
+            if (statTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + statS + "=" + "'" + statTxt.getText() + "'";
+                else
+                    updateS += statS + "=" + "'" + statTxt.getText() + "'";
+            }
+
+            if (typeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + typeS + "=" + "'" + typeTxt.getText() + "'";
+                else
+                    updateS += typeS + "=" + "'" + typeTxt.getText() + "'";
+            }
+
+            if (repTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + repS + "=" + "'" + repTxt.getText() + "'";
+                else
+                    updateS += repS + "=" + "'" + repTxt.getText() + "'";
+            }
+            updateS += where;
+            System.out.println(updateS);
+            SqlObject query = new SqlObject(frame, main, updateS, table, column);
+            query.updateQuery();
         }
 
     }
