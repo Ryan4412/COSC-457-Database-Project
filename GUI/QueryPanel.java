@@ -18,7 +18,8 @@ public class QueryPanel implements ActionListener {
             "Receptionist", "Report", "Sale", "Sales Manager",
             "Sales Rep", "Used Car", "Used Car History" };
     JComboBox selectQuery;
-    String[] selectableQueries = { "Highest", "Average", "Who purchased what", "Who sold who" };
+    String[] selectableQueries = { "Average commission of sales reps", "Average", "Who purchased what",
+            "Who sold who" };
 
     public QueryPanel() {
         select = new JComboBox<>(selectable);
@@ -26,6 +27,7 @@ public class QueryPanel implements ActionListener {
         prompt.setText("Please select which data you would like to query using the drop down menu");
         selectQuery = new JComboBox<>(selectableQueries);
         queryPrompt.setText("Other queries");
+        selectQuery.addActionListener(this);
         queryPrompt.setBounds(0, 50, 1000, 0);
         selectQuery.setBounds(0, 50, 1000, 0);
         panel.add(prompt);
@@ -113,20 +115,23 @@ public class QueryPanel implements ActionListener {
                 usedcarhistory.sendMain(main, frame, 3);
             }
         }
-        // if (e.getSource() == selectQuery) {
-        // if (selectQuery.getSelectedItem().equals("Highest")) {
+        if (e.getSource() == selectQuery) {
+            if (selectQuery.getSelectedItem().equals("Average commission of sales reps")) {
+                // String[] column = { "COMMISSION" };
+                SqlObject query = new SqlObject(frame, main, "SELECT AVG(COMMISSION) FROM rkraft3db.DBP_SALES_REP;",
+                        "DBP_SALES_REP", null);
+                query.query();
+            }
+            if (selectQuery.getSelectedItem().equals("Average")) {
 
-        // }
-        // if (selectQuery.getSelectedItem().equals("Average")) {
+            }
+            if (selectQuery.getSelectedItem().equals("Who purchased what")) {
 
-        // }
-        // if (selectQuery.getSelectedItem().equals("Who purchased what")) {
+            }
+            if (selectQuery.getSelectedItem().equals("Who sold who")) {
 
-        // }
-        // if (selectQuery.getSelectedItem().equals("Who sold who")) {
-
-        // }
-        // }
+            }
+        }
     }
 
 }

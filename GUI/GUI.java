@@ -37,7 +37,7 @@ public class GUI extends JFrame implements ActionListener {
         insert.addActionListener(this);
         insert.setText("Insert");
         insert.setHorizontalTextPosition(JButton.CENTER);
-        insert.setBounds(200, 150, 100, 100);
+        insert.setBounds(150, 150, 100, 100);
         insert.setFocusable(false);
         insert.setVisible(true);
         this.add(insert);
@@ -45,7 +45,7 @@ public class GUI extends JFrame implements ActionListener {
         delete.addActionListener(this);
         delete.setText("Delete");
         delete.setHorizontalTextPosition(JButton.CENTER);
-        delete.setBounds(400, 150, 100, 100);
+        delete.setBounds(320, 150, 100, 100);
         delete.setFocusable(false);
         delete.setVisible(true);
         this.add(delete);
@@ -53,7 +53,7 @@ public class GUI extends JFrame implements ActionListener {
         query.addActionListener(this);
         query.setText("Query");
         query.setHorizontalTextPosition(JButton.CENTER);
-        query.setBounds(600, 150, 100, 100);
+        query.setBounds(480, 150, 100, 100);
         query.setFocusable(false);
         query.setVisible(true);
         this.add(query);
@@ -61,7 +61,7 @@ public class GUI extends JFrame implements ActionListener {
         update.addActionListener(this);
         update.setText("Update");
         update.setHorizontalTextPosition(JButton.CENTER);
-        update.setBounds(400, 10, 100, 100);
+        update.setBounds(650, 150, 100, 100);
         update.setFocusable(false);
         update.setVisible(true);
         this.add(update);
