@@ -18,7 +18,7 @@ public class QueryPanel implements ActionListener {
             "Receptionist", "Report", "Sale", "Sales Manager",
             "Sales Rep", "Used Car", "Used Car History" };
     JComboBox selectQuery;
-    String[] selectableQueries = { "Highest", "Average", "Who purchased what", "Who sold who"};
+    String[] selectableQueries = { "Highest", "Average", "Who purchased what", "Who sold who" };
 
     public QueryPanel() {
         select = new JComboBox<>(selectable);
@@ -54,78 +54,78 @@ public class QueryPanel implements ActionListener {
 
             if (select.getSelectedItem().equals("Appointment")) {
                 AppointmentPanel appointment = new AppointmentPanel();
-                appointment.sendMain(main, frame, false, true);
+                appointment.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Car")) {
                 CarPanel car = new CarPanel();
-                car.sendMain(main, frame, false, true);
+                car.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Cosigner")) {
                 CosignerPanel cosigner = new CosignerPanel();
-                cosigner.sendMain(main, frame, false, true);
+                cosigner.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Customer")) {
                 CustomerPanel customer = new CustomerPanel();
-                customer.sendMain(main, frame, false, true);
+                customer.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Employee")) {
                 EmployeePanel employee = new EmployeePanel();
-                employee.sendMain(main, frame, false, true);
+                employee.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Finance Manager")) {
                 FinancemanagerPanel financemanager = new FinancemanagerPanel();
-                financemanager.sendMain(main, frame, false, true);
+                financemanager.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Janator")) {
                 JanatorPanel janator = new JanatorPanel();
-                janator.sendMain(main, frame, false, true);
+                janator.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("New Car")) {
                 NewcarPanel newcar = new NewcarPanel();
-                newcar.sendMain(main, frame, false, true);
+                newcar.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Receptionist")) {
                 ReceptionistPanel receptionist = new ReceptionistPanel();
-                receptionist.sendMain(main, frame, false, true);
+                receptionist.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Report")) {
                 ReportPanel report = new ReportPanel();
-                report.sendMain(main, frame, false, true);
+                report.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Sale")) {
                 SalePanel sale = new SalePanel();
-                sale.sendMain(main, frame, false, true);
+                sale.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Sales Manager")) {
                 SalesmanagerPanel salesmanager = new SalesmanagerPanel();
-                salesmanager.sendMain(main, frame, false, true);
+                salesmanager.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Sales Rep")) {
                 SalesrepresentativePanel salesrepresentative = new SalesrepresentativePanel();
-                salesrepresentative.sendMain(main, frame, false, true);
+                salesrepresentative.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Used Car")) {
                 UsedcarPanel usedcar = new UsedcarPanel();
-                usedcar.sendMain(main, frame, false, true);
+                usedcar.sendMain(main, frame, 3);
             }
             if (select.getSelectedItem().equals("Used Car History")) {
                 UsedcarhistoryPanel usedcarhistory = new UsedcarhistoryPanel();
-                usedcarhistory.sendMain(main, frame, false, true);
+                usedcarhistory.sendMain(main, frame, 3);
             }
         }
         // if (e.getSource() == selectQuery) {
-        //     if (selectQuery.getSelectedItem().equals("Highest")) {
-                
-        //     }
-        //     if (selectQuery.getSelectedItem().equals("Average")) {
-                
-        //     }
-        //     if (selectQuery.getSelectedItem().equals("Who purchased what")) {
+        // if (selectQuery.getSelectedItem().equals("Highest")) {
 
-        //     }
-        //     if (selectQuery.getSelectedItem().equals("Who sold who")) {
+        // }
+        // if (selectQuery.getSelectedItem().equals("Average")) {
 
-        //     }
+        // }
+        // if (selectQuery.getSelectedItem().equals("Who purchased what")) {
+
+        // }
+        // if (selectQuery.getSelectedItem().equals("Who sold who")) {
+
+        // }
         // }
     }
 

@@ -21,6 +21,7 @@ public class GUI extends JFrame implements ActionListener {
     JButton insert = new JButton();
     JButton delete = new JButton();
     JButton query = new JButton();
+    JButton update = new JButton();
     JPanel main = new JPanel();
     // Conection Object
     Connection con;
@@ -56,6 +57,14 @@ public class GUI extends JFrame implements ActionListener {
         query.setFocusable(false);
         query.setVisible(true);
         this.add(query);
+        // update button setup
+        update.addActionListener(this);
+        update.setText("Update");
+        update.setHorizontalTextPosition(JButton.CENTER);
+        update.setBounds(400, 10, 100, 100);
+        update.setFocusable(false);
+        update.setVisible(true);
+        this.add(update);
         // main JPanel to disply actions
         main.setVisible(true);
         main.setLayout(new BorderLayout());
@@ -91,6 +100,9 @@ public class GUI extends JFrame implements ActionListener {
         if (e.getSource() == query) {
             query();
         }
+        if (e.getSource() == update) {
+            update();
+        }
     }
 
     public void insert() {
@@ -106,6 +118,11 @@ public class GUI extends JFrame implements ActionListener {
     public void query() {
         QueryPanel queryPanel = new QueryPanel();
         queryPanel.sendMain(main, this);
+    }
+
+    public void update() {
+        UpdatePanel updatePanel = new UpdatePanel();
+        updatePanel.sendMain(main, this);
     }
 
     public void setMain() {

@@ -20,12 +20,11 @@ public class NewcarPanel implements ActionListener {
     JButton submit = new JButton();
     JButton cancle = new JButton();
     String table = "DBP_NEW_CAR";
-    String [] column = { "NEW_VIN", "DEALER_CERTIFIED" };
+    String[] column = { "NEW_VIN", "DEALER_CERTIFIED" };
     String insert = "INSERT INTO rkraft3db.DBP_NEW_CAR(NEW_VIN, DEALER_CERTIFIED)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_NEW_CAR WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_NEW_CAR WHERE ";
-    boolean sqlType;
-    boolean sqlQuery;
+    int sqlType;
     int deleteCount = 0;
 
     public NewcarPanel() {
@@ -61,11 +60,10 @@ public class NewcarPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
+    public void sendMain(JPanel main, GUI frame, int sqlType) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
-        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -78,13 +76,13 @@ public class NewcarPanel implements ActionListener {
             frame.setMain();
         }
         // insert submit
-        if (e.getSource() == submit && sqlType == true) {
+        if (e.getSource() == submit && sqlType == 1) {
             insert += "'" + vinTxt.getText() + "', '" + dealerCertifiedTxt.getText() + "');";
             SqlObject query = new SqlObject(frame, main, insert, table, column);
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
+        if (e.getSource() == submit && sqlType == 2) {
             if (vinTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
@@ -100,12 +98,12 @@ public class NewcarPanel implements ActionListener {
             SqlObject query = new SqlObject(frame, main, delete, table, column);
             query.updateQuery();
         }
-        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+        if (e.getSource() == submit && sqlType == 3) {
             if (vinTxt.getText().length() > 0) {
                 deleteCount += 1;
                 queryS += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
             }
-    
+
             if (dealerCertifiedTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
@@ -117,7 +115,7 @@ public class NewcarPanel implements ActionListener {
             if (deleteCount == 0) {
                 queryS = queryS.replace(" WHERE ", "");
             }
-            
+
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
         }

@@ -25,12 +25,11 @@ public class UsedcarhistoryPanel implements ActionListener {
     JButton submit = new JButton();
     JButton cancle = new JButton();
     String table = "DBP_USED_CAR_HISTORY";
-    String [] column = { "USED_CH_VIN", "NUM_ACIDENTS", "NUM_REPAIRS", "LARGEST_PART_REPAIR" };
+    String[] column = { "USED_CH_VIN", "NUM_ACIDENTS", "NUM_REPAIRS", "LARGEST_PART_REPAIR" };
     String insert = "INSERT INTO rkraft3db.DBP_USED_CAR_HISTORY(USED_CH_VIN, NUM_ACIDENTS, NUM_REPAIRS, LARGEST_PART_REPAIRED)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_USED_CAR_HISTORY WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_USED_CAR_HISTORY WHERE ";
-    boolean sqlType;
-    boolean sqlQuery;
+    int sqlType;
     int deleteCount = 0;
 
     public UsedcarhistoryPanel() {
@@ -78,11 +77,10 @@ public class UsedcarhistoryPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
+    public void sendMain(JPanel main, GUI frame, int sqlType) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
-        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -95,14 +93,14 @@ public class UsedcarhistoryPanel implements ActionListener {
             frame.setMain();
         }
         // insert submit
-        if (e.getSource() == submit && sqlType == true) {
+        if (e.getSource() == submit && sqlType == 1) {
             insert += "'" + vinTxt.getText() + "', '" + numATxt.getText() + "', '"
                     + numRTxt.getText() + "', '" + largeTxt.getText() + "');";
             SqlObject query = new SqlObject(frame, main, insert, table, column);
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
+        if (e.getSource() == submit && sqlType == 2) {
             if (vinTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
@@ -136,12 +134,12 @@ public class UsedcarhistoryPanel implements ActionListener {
             query.updateQuery();
 
         }
-        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+        if (e.getSource() == submit && sqlType == 3) {
             if (vinTxt.getText().length() > 0) {
                 deleteCount += 1;
                 queryS += "(" + vinS + "=" + "'" + vinTxt.getText() + "')";
             }
-    
+
             if (numATxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
@@ -149,16 +147,16 @@ public class UsedcarhistoryPanel implements ActionListener {
                 else
                     queryS += "(" + numAS + "=" + "'" + numATxt.getText() + "')";
             }
-    
+
             if (numRTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
                     queryS += "and(" + numRS + "=" + "'" + numRTxt.getText() + "')";
                 else
                     queryS += "(" + numRS + "=" + "'" + numRTxt.getText() + "')";
-    
+
             }
-    
+
             if (largeTxt.getText().length() > 0) {
                 deleteCount += 1;
                 if (deleteCount > 1)
@@ -170,10 +168,10 @@ public class UsedcarhistoryPanel implements ActionListener {
             if (deleteCount == 0) {
                 queryS = queryS.replace(" WHERE ", "");
             }
-            
+
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
-    
+
         }
 
     }
