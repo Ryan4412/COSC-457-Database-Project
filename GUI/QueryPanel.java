@@ -21,7 +21,6 @@ public class QueryPanel implements ActionListener {
     String[] selectableQueries = { "Average commission of sales representative",
             "Sales representative commission (highest to lowest)",
             "Sales representative car sales (highest to lowest)", "Average salary of sales manager",
-            "Sales manager car sales (highest to lowest)",
             "Used Car MPG (highest to lowest)", "New Car MPG (highest to lowest)", "All Car MPG (highest to lowest)",
             "Average customer GMI",
             "Customer GMI (highest to lowest)", "Average customer credit score",
@@ -126,17 +125,55 @@ public class QueryPanel implements ActionListener {
             }
         }
         if (e.getSource() == selectQuery) {
+            // sales rep avr commission
             if (selectQuery.getSelectedItem().equals("Average commission of sales reps")) {
                 String[] column = { "COMMISSION" };
                 SqlObject query = new SqlObject(frame, main, "SELECT AVG(COMMISSION) FROM rkraft3db.DBP_SALES_REP;",
                         "DBP_SALES_REP", column);
                 query.query();
             }
+            // sales rep commission high-low
             if (selectQuery.getSelectedItem().equals("Sales representative commission (highest to lowest)")) {
                 String[] column = { "SR_SSN", "NO_CAR_SALES", "COMMISSION" };
                 SqlObject query = new SqlObject(frame, main,
                         "SELECT* FROM rkraft3db.DBP_SALES_REP ORDER BY COMMISSION DESC;",
                         "DBP_SALES_REP", column);
+                query.query();
+            }
+            // sales rep car sales high-low
+            if (selectQuery.getSelectedItem().equals("Sales representative car sales (highest to lowest)")) {
+                String[] column = { "SR_SSN", "NO_CAR_SALES", "COMMISSION" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT* FROM rkraft3db.DBP_SALES_REP ORDER BY NO_CAR_SALES DESC;",
+                        "DBP_SALES_REP", column);
+                query.query();
+            }
+            // sales man avr salary
+            if (selectQuery.getSelectedItem().equals("Average salary of sales manager")) {
+                String[] column = { "SALARY" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT AVG(SALARY) FROM rkraft3db.DBP_EMPLOYEE;",
+                        "DBP_EMPLOYEE", column);
+                query.query();
+            }
+            // used car mpg high-low
+            if (selectQuery.getSelectedItem().equals("Used Car MPG (highest to lowest)")) {
+                String[] column = { "VIN", "NUM_DOORS", "COLOR", "NUM_SEATS", "ENGINE_TYPE", "NUM_MILES", "MPG",
+                        "TIRE_TYPE",
+                        "MSRP", "YEAR", "MAKE", "MODEL", "STATUS" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT* FROM rkraft3db.DBP_CAR WHERE VIN IN (SELECT USED_VIN FROM rkraft3db.DBP_USED_CAR) ORDER BY MPG DESC;",
+                        "DBP_CAR", column);
+                query.query();
+            }
+            // new car mpg high-low
+            if (selectQuery.getSelectedItem().equals("New Car MPG (highest to lowest)")) {
+                String[] column = { "VIN", "NUM_DOORS", "COLOR", "NUM_SEATS", "ENGINE_TYPE", "NUM_MILES", "MPG",
+                        "TIRE_TYPE",
+                        "MSRP", "YEAR", "MAKE", "MODEL", "STATUS" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT* FROM rkraft3db.DBP_CAR WHERE VIN IN (SELECT NEW_VIN FROM rkraft3db.DBP_NEW_CAR) ORDER BY MPG DESC;",
+                        "DBP_CAR", column);
                 query.query();
             }
 
