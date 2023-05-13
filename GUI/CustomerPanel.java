@@ -49,6 +49,8 @@ public class CustomerPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_CUSTOMER(C_SSN, FIRST, MINIT, LAST, OCCUPATION, CREDIT_SCORE, GMI, RECENT_EMPLOYER, LICENSE_NUM, PAYMENT_TYPE)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_CUSTOMER WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_CUSTOMER WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_CUSTOMER SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -328,6 +330,91 @@ public class CustomerPanel implements ActionListener {
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+
+        }
+
+        if (e.getSource() == submit && sqlType == 4) {
+            if (ssnTxt.getText().length() > 0) {
+                where += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "');";
+            }
+
+            if (firstTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + firstS + "=" + "'" + firstTxt.getText() + "'";
+                else
+                    updateS += firstS + "=" + "'" + firstTxt.getText() + "'";
+
+            }
+
+            if (minitTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + minitS + "=" + "'" + minitTxt.getText() + "'";
+                else
+                    updateS += minitS + "=" + "'" + minitTxt.getText() + "'";
+            }
+
+            if (lastTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + lastS + "=" + "'" + lastTxt.getText() + "'";
+                else
+                    updateS += lastS + "=" + "'" + lastTxt.getText() + "'";
+            }
+
+            if (occupationTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + occupationS + "=" + "'" + occupationTxt.getText() + "'";
+                else
+                    updateS += occupationS + "=" + "'" + occupationTxt.getText() + "'";
+            }
+            if (creditScoreTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + creditScoreS + "=" + "'" + creditScoreTxt.getText() + "'";
+                else
+                    updateS += creditScoreS + "=" + "'" + creditScoreTxt.getText() + "'";
+            }
+
+            if (gmiTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + gmiS + "=" + "'" + gmiTxt.getText() + "'";
+                else
+                    updateS += gmiS + "=" + "'" + gmiTxt.getText() + "'";
+
+            }
+
+            if (recentEmployerTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + recentEmployerS + "=" + "'" + recentEmployerTxt.getText() + "'";
+                else
+                    updateS += recentEmployerS + "=" + "'" + recentEmployerTxt.getText() + "'";
+            }
+
+            if (licenseNumTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + licenseNumS + "=" + "'" + licenseNumTxt.getText() + "'";
+                else
+                    updateS += licenseNumS + "=" + "'" + licenseNumTxt.getText() + "'";
+            }
+
+            if (paymentTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "'";
+                else
+                    updateS += paymentTypeS + "=" + "'" + paymentTypeTxt.getText() + "'";
+            }
+
+            updateS += where;
+            // System.out.println(updateS);
+            SqlObject update = new SqlObject(frame, main, updateS, table, column);
+            update.updateQuery();
 
         }
     }

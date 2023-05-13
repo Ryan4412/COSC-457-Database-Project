@@ -243,7 +243,7 @@ public class AppointmentPanel implements ActionListener {
                     updateS += repS + "=" + "'" + repTxt.getText() + "'";
             }
             updateS += where;
-            System.out.println(updateS);
+            // System.out.println(updateS);
             SqlObject query = new SqlObject(frame, main, updateS, table, column);
             query.updateQuery();
         }

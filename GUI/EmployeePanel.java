@@ -42,6 +42,8 @@ public class EmployeePanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_EMPLOYEE(SSN, FIRST, MINIT, LAST, JOB_TYPE, SALARY, DEPARTMENT, ADDRESS)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_EMPLOYEE WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_EMPLOYEE WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_EMPLOYEE SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -281,6 +283,74 @@ public class EmployeePanel implements ActionListener {
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+
+        }
+        if (e.getSource() == submit && sqlType == 4) {
+            if (ssnTxt.getText().length() > 0) {
+                where += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "');";
+            }
+
+            if (firstTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + firstS + "=" + "'" + firstTxt.getText() + "'";
+                else
+                    updateS += firstS + "=" + "'" + firstTxt.getText() + "'";
+
+            }
+
+            if (minitTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + minitS + "=" + "'" + minitTxt.getText() + "'";
+                else
+                    updateS += minitS + "=" + "'" + minitTxt.getText() + "'";
+            }
+
+            if (lastTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + lastS + "=" + "'" + lastTxt.getText() + "'";
+                else
+                    updateS += lastS + "=" + "'" + lastTxt.getText() + "'";
+            }
+
+            if (jobTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + jobTypeS + "=" + "'" + jobTypeTxt.getText() + "'";
+                else
+                    updateS += jobTypeS + "=" + "'" + jobTypeTxt.getText() + "'";
+            }
+            if (salaryTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + salaryS + "=" + "'" + salaryTxt.getText() + "'";
+                else
+                    updateS += salaryS + "=" + "'" + salaryTxt.getText() + "'";
+            }
+
+            if (departmentTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + departmentS + "=" + "'" + departmentTxt.getText() + "'";
+                else
+                    updateS += departmentS + "=" + "'" + departmentTxt.getText() + "'";
+
+            }
+
+            if (addressTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + addressS + "=" + "'" + addressTxt.getText() + "'";
+                else
+                    updateS += addressS + "=" + "'" + addressTxt.getText() + "'";
+            }
+
+            updateS += where;
+            // System.out.println(updateS);
+            SqlObject update = new SqlObject(frame, main, updateS, table, column);
+            update.updateQuery();
 
         }
     }

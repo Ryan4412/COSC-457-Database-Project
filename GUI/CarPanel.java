@@ -58,6 +58,8 @@ public class CarPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_CAR(VIN, NUM_DOORS, COLOR, NUM_SEATS, ENGINE_TYPE, NUM_MILES, MPG, TIRE_TYPE, MSRP, YEAR, MAKE, MODEL, STATUS)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_CAR WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_CAR WHERE ";
+    String updateS = "UPDATE rkraft3db.DBP_CAR SET ";
+    String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
 
@@ -401,6 +403,115 @@ public class CarPanel implements ActionListener {
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
+
+        }
+
+        // update
+        if (e.getSource() == submit && sqlType == 4) {
+            if (vinTxt.getText().length() > 0) {
+                where += "(" + vinS + "=" + "'" + vinTxt.getText() + "');";
+            }
+
+            if (numDoorsTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + numDoorsS + "=" + "'" + numDoorsTxt.getText() + "'";
+                else
+                    updateS += numDoorsS + "=" + "'" + numDoorsTxt.getText() + "'";
+
+            }
+
+            if (colorTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + colorS + "=" + "'" + colorTxt.getText() + "'";
+                else
+                    updateS += colorS + "=" + "'" + colorTxt.getText() + "'";
+            }
+
+            if (numSeatsTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + numSeatsS + "=" + "'" + numSeatsTxt.getText() + "'";
+                else
+                    updateS += numSeatsS + "=" + "'" + numSeatsTxt.getText() + "'";
+            }
+
+            if (engineTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + engineTypeS + "=" + "'" + engineTypeTxt.getText() + "'";
+                else
+                    updateS += engineTypeS + "=" + "'" + engineTypeTxt.getText() + "'";
+            }
+            if (numMilesTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + numMilesS + "=" + "'" + numMilesTxt.getText() + "'";
+                else
+                    updateS += numMilesS + "=" + "'" + numMilesTxt.getText() + "'";
+            }
+
+            if (mpgTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + mpgS + "=" + "'" + mpgTxt.getText() + "'";
+                else
+                    updateS += mpgS + "=" + "'" + mpgTxt.getText() + "'";
+
+            }
+
+            if (tireTypeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + tireTypeS + "=" + "'" + tireTypeTxt.getText() + "'";
+                else
+                    updateS += tireTypeS + "=" + "'" + tireTypeTxt.getText() + "'";
+            }
+
+            if (msrpTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + msrpS + "=" + "'" + msrpTxt.getText() + "'";
+                else
+                    updateS += msrpS + "=" + "'" + msrpTxt.getText() + "'";
+            }
+
+            if (yearTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + yearS + "=" + "'" + yearTxt.getText() + "'";
+                else
+                    updateS += yearS + "=" + "'" + yearTxt.getText() + "'";
+            }
+            if (makeTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + makeS + "=" + "'" + makeTxt.getText() + "'";
+                else
+                    updateS += makeS + "=" + "'" + makeTxt.getText() + "'";
+            }
+
+            if (modelTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + modelS + "=" + "'" + modelTxt.getText() + "'";
+                else
+                    updateS += modelS + "=" + "'" + modelTxt.getText() + "'";
+            }
+
+            if (statusTxt.getText().length() > 0) {
+                deleteCount += 1;
+                if (deleteCount > 1)
+                    updateS += "," + statusS + "=" + "'" + statusTxt.getText() + "'";
+                else
+                    updateS += statusS + "=" + "'" + statusTxt.getText() + "'";
+            }
+
+            updateS += where;
+            // System.out.println(updateS);
+            SqlObject update = new SqlObject(frame, main, updateS, table, column);
+            update.updateQuery();
 
         }
     }

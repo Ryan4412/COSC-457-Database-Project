@@ -13,8 +13,8 @@ public class UpdatePanel implements ActionListener {
     GUI frame;
     JComboBox select;
     String[] selectable = { "Appointment", "Car", "Cosigner", "Customer",
-            "Employee", "Finance Manager", "Janator", "New Car",
-            "Receptionist", "Report", "Sale", "Sales Manager",
+            "Employee", "New Car",
+            "Report", "Sale",
             "Sales Rep", "Used Car", "Used Car History" };
 
     public UpdatePanel() {
@@ -63,21 +63,9 @@ public class UpdatePanel implements ActionListener {
                 EmployeePanel employee = new EmployeePanel();
                 employee.sendMain(main, frame, 4);
             }
-            if (select.getSelectedItem().equals("Finance Manager")) {
-                FinancemanagerPanel financemanager = new FinancemanagerPanel();
-                financemanager.sendMain(main, frame, 4);
-            }
-            if (select.getSelectedItem().equals("Janator")) {
-                JanatorPanel janator = new JanatorPanel();
-                janator.sendMain(main, frame, 4);
-            }
             if (select.getSelectedItem().equals("New Car")) {
                 NewcarPanel newcar = new NewcarPanel();
                 newcar.sendMain(main, frame, 4);
-            }
-            if (select.getSelectedItem().equals("Receptionist")) {
-                ReceptionistPanel receptionist = new ReceptionistPanel();
-                receptionist.sendMain(main, frame, 4);
             }
             if (select.getSelectedItem().equals("Report")) {
                 ReportPanel report = new ReportPanel();
@@ -86,10 +74,6 @@ public class UpdatePanel implements ActionListener {
             if (select.getSelectedItem().equals("Sale")) {
                 SalePanel sale = new SalePanel();
                 sale.sendMain(main, frame, 4);
-            }
-            if (select.getSelectedItem().equals("Sales Manager")) {
-                SalesmanagerPanel salesmanager = new SalesmanagerPanel();
-                salesmanager.sendMain(main, frame, 4);
             }
             if (select.getSelectedItem().equals("Sales Rep")) {
                 SalesrepresentativePanel salesrepresentative = new SalesrepresentativePanel();
