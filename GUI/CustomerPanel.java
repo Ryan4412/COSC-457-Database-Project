@@ -49,8 +49,7 @@ public class CustomerPanel implements ActionListener {
     String insert = "INSERT INTO rkraft3db.DBP_CUSTOMER(C_SSN, FIRST, MINIT, LAST, OCCUPATION, CREDIT_SCORE, GMI, RECENT_EMPLOYER, LICENSE_NUM, PAYMENT_TYPE)VALUES(";
     String delete = "DELETE FROM rkraft3db.DBP_CUSTOMER WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_CUSTOMER WHERE ";
-    boolean sqlType;
-    boolean sqlQuery;
+    int sqlType;
     int deleteCount = 0;
 
     public CustomerPanel() {
@@ -134,11 +133,10 @@ public class CustomerPanel implements ActionListener {
         panel.add(cancle);
     }
 
-    public void sendMain(JPanel main, GUI frame, boolean sqlType, boolean sqlQuery) {
+    public void sendMain(JPanel main, GUI frame, int sqlType) {
         this.main = main;
         this.frame = frame;
         this.sqlType = sqlType;
-        this.sqlQuery = sqlQuery;
         main.removeAll();
         main.add(panel);
         main.revalidate();
@@ -151,7 +149,7 @@ public class CustomerPanel implements ActionListener {
             frame.setMain();
         }
         // insert submit
-        if (e.getSource() == submit && sqlType == true) {
+        if (e.getSource() == submit && sqlType == 1) {
             insert += "'" + ssnTxt.getText() + "', '" + firstTxt.getText() + "', '" + minitTxt.getText() + "', '"
                     + lastTxt.getText() + "', '" + occupationTxt.getText() + "', '" + creditScoreTxt.getText() + "', '"
                     + gmiTxt.getText() + "', '" + recentEmployerTxt.getText() + "', '" + licenseNumTxt.getText()
@@ -161,7 +159,7 @@ public class CustomerPanel implements ActionListener {
             query.updateQuery();
         }
         // delete submit
-        if (e.getSource() == submit && sqlType == false && sqlQuery == false) {
+        if (e.getSource() == submit && sqlType == 2) {
             if (ssnTxt.getText().length() > 0) {
                 deleteCount += 1;
                 delete += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
@@ -244,7 +242,7 @@ public class CustomerPanel implements ActionListener {
             query.updateQuery();
 
         }
-        if (e.getSource() == submit && sqlType == false && sqlQuery == true) {
+        if (e.getSource() == submit && sqlType == 3) {
             if (ssnTxt.getText().length() > 0) {
                 deleteCount += 1;
                 queryS += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "')";
@@ -326,7 +324,7 @@ public class CustomerPanel implements ActionListener {
             if (deleteCount == 0) {
                 queryS = queryS.replace(" WHERE ", "");
             }
-            
+
             queryS += ";";
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
