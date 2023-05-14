@@ -11,6 +11,12 @@ public class SalesrepresentativePanel implements ActionListener {
     JPanel main;
     GUI frame;
     JPanel panel = new JPanel();
+    JPanel panel2 = new JPanel();
+
+    JLabel make = new JLabel();
+    JTextField makeTxt = new JTextField();
+    String makeS = "MAKE";
+
     JLabel ssn = new JLabel();
     JTextField ssnTxt = new JTextField();
     String ssnS = "SR_SSN";
@@ -28,6 +34,8 @@ public class SalesrepresentativePanel implements ActionListener {
     String delete = "DELETE FROM rkraft3db.DBP_SALES_REP WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_SALES_REP WHERE ";
     String updateS = "UPDATE rkraft3db.DBP_SALES_REP SET ";
+    String whatCustS = "SELECT FIRST, MINIT, LAST FROM DBP_CUSTOMER WHERE C_SSN IN (SELECT CUST_SSN FROM DBP_SALE WHERE SALE_VIN IN (SELECT VIN FROM DBP_CAR WHERE MAKE = '#'))";
+    String whoBoughtS = "SELECT FIRST, LAST FROM DBP_CUSTOMER WHERE C_SSN IN (SELECT CUST_SSN FROM DBP_SALE WHERE SREP_SSN IN (SELECT SR_SSN FROM DBP_SALES_REP WHERE SR_SSN IN (SELECT SSN FROM DBP_EMPLOYEE WHERE FIRST = '!' AND LAST = '^')))";
     String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
@@ -69,6 +77,20 @@ public class SalesrepresentativePanel implements ActionListener {
         panel.add(comTxt);
         panel.add(submit);
         panel.add(cancle);
+        // add elements to panel2
+        make.setText("Customer, make bought:");
+        make.setBounds(10, 50, 300, 25);
+        makeTxt.setBounds(230, 50, 150, 25);
+
+        panel2.setVisible(true);
+        panel2.setBackground(new Color(200, 200, 200));
+        panel2.setLayout(null);
+        panel2.add(ssn);
+        panel2.add(ssnTxt);
+        panel2.add(make);
+        panel2.add(makeTxt);
+        panel2.add(submit);
+        panel2.add(cancle);
     }
 
     public void sendMain(JPanel main, GUI frame, int sqlType) {
@@ -76,7 +98,10 @@ public class SalesrepresentativePanel implements ActionListener {
         this.frame = frame;
         this.sqlType = sqlType;
         main.removeAll();
-        main.add(panel);
+        if (sqlType == 5)
+            main.add(panel2);
+        else
+            main.add(panel);
         main.revalidate();
         main.repaint();
     }
@@ -174,6 +199,20 @@ public class SalesrepresentativePanel implements ActionListener {
             SqlObject query = new SqlObject(frame, main, updateS, table, column);
             query.updateQuery();
         }
+
+        if (e.getSource() == submit && sqlType == 7) {
+            if (ssnTxt.getText().length() > 0) {
+                where += "(" + ssnS + "=" + "'" + ssnTxt.getText() + "');";
+            }
+            if (makeTxt.getText().length() > 0) {
+                whatCustS = whatCustS.replace("#", makeTxt.getText());
+            }
+
+            System.out.println(updateS);
+            SqlObject query = new SqlObject(frame, main, whatCustS, table, column);
+            query.updateQuery();
+        }
+
     }
 
 }

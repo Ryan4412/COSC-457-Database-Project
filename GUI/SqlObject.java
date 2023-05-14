@@ -117,6 +117,7 @@ public class SqlObject {
         } catch (SQLException e) {
             JLabel prompt = new JLabel();
             prompt.setText("The query was unsuccessful, please try again.");
+            System.out.println(e);
 
             main.removeAll();
             main.add(prompt);

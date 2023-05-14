@@ -18,7 +18,7 @@ public class QueryPanel implements ActionListener {
             "Receptionist", "Report", "Sale", "Sales Manager",
             "Sales Rep", "Used Car", "Used Car History" };
     JComboBox selectQuery;
-    String[] selectableQueries = { "Average commission of sales representative",
+    String[] selectableQueries = { "Who bought what", "Average commission of sales representative",
             "Sales representative commission (highest to lowest)",
             "Sales representative car sales (highest to lowest)", "Average salary of sales manager",
             "Used Car MPG (highest to lowest)", "New Car MPG (highest to lowest)", "All Car MPG (highest to lowest)",
@@ -249,6 +249,16 @@ public class QueryPanel implements ActionListener {
                         "SELECT* FROM rkraft3db.DBP_CAR WHERE VIN IN (SELECT NEW_VIN FROM rkraft3db.DBP_NEW_CAR) ORDER BY MPG DESC;",
                         "DBP_CAR", column);
                 query.query();
+            }
+
+            if (selectQuery.getSelectedItem().equals("Who bought what")) {
+                CustomerPanel customer = new CustomerPanel();
+                customer.sendMain(main, frame, 5);
+            }
+
+            if (selectQuery.getSelectedItem().equals("Who sold who")) {
+                SalesrepresentativePanel salesrepresentative = new SalesrepresentativePanel();
+                salesrepresentative.sendMain(main, frame, 6);
             }
 
         }

@@ -11,6 +11,11 @@ public class CustomerPanel implements ActionListener {
     JPanel main;
     GUI frame;
     JPanel panel = new JPanel();
+
+    JLabel make = new JLabel();
+    JTextField makeTxt = new JTextField();
+    String makeS = "MAKE";
+
     JLabel ssn = new JLabel();
     JTextField ssnTxt = new JTextField();
     String ssnS = "C_SSN";
@@ -50,9 +55,12 @@ public class CustomerPanel implements ActionListener {
     String delete = "DELETE FROM rkraft3db.DBP_CUSTOMER WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_CUSTOMER WHERE ";
     String updateS = "UPDATE rkraft3db.DBP_CUSTOMER SET ";
+    String whatCustS = "SELECT FIRST, MINIT, LAST FROM DBP_CUSTOMER WHERE C_SSN IN (SELECT CUST_SSN FROM DBP_SALE WHERE SALE_VIN IN (SELECT VIN FROM DBP_CAR WHERE MAKE = '#'))";
     String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
+
+    JPanel panel2 = new JPanel();
 
     public CustomerPanel() {
         // ssn elements
@@ -133,6 +141,19 @@ public class CustomerPanel implements ActionListener {
         panel.add(lastTxt);
         panel.add(submit);
         panel.add(cancle);
+        // add elements to panel2
+        make.setText("Customer, make bought:");
+        make.setBounds(10, 10, 300, 25);
+        makeTxt.setBounds(230, 10, 150, 25);
+
+        panel2.setVisible(true);
+        panel2.setBackground(new Color(200, 200, 200));
+        panel2.setLayout(null);
+
+        panel2.add(make);
+        panel2.add(makeTxt);
+        panel2.add(submit);
+        panel2.add(cancle);
     }
 
     public void sendMain(JPanel main, GUI frame, int sqlType) {
@@ -140,7 +161,14 @@ public class CustomerPanel implements ActionListener {
         this.frame = frame;
         this.sqlType = sqlType;
         main.removeAll();
-        main.add(panel);
+        if (sqlType == 5) {
+            panel2.add(make);
+            panel2.add(makeTxt);
+            panel2.add(submit);
+            panel2.add(cancle);
+            main.add(panel2);
+        } else
+            main.add(panel);
         main.revalidate();
         main.repaint();
     }
@@ -416,6 +444,17 @@ public class CustomerPanel implements ActionListener {
             SqlObject update = new SqlObject(frame, main, updateS, table, column);
             update.updateQuery();
 
+        }
+        // who bought what
+        if (e.getSource() == submit && sqlType == 5) {
+            if (makeTxt.getText().length() > 0) {
+                whatCustS = whatCustS.replace("#", makeTxt.getText());
+            }
+
+            String[] columns = { "FIRST", "MINIT", "LAST" };
+            System.out.println(whatCustS);
+            SqlObject query = new SqlObject(frame, main, whatCustS, "DBP_CUSTOMER", columns);
+            query.query();
         }
     }
 
