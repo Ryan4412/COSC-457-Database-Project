@@ -222,61 +222,7 @@ public class SalePanel implements ActionListener {
             SqlObject query = new SqlObject(frame, main, queryS, table, column);
             query.query();
         }
-
-        if (e.getSource() == submit && sqlType == 4) {
-            if (numTxt.getText().length() > 0) {
-                deleteCount += 1;
-                where += "(" + numS + "=" + "'" + numTxt.getText() + "');";
-            }
-
-            if (cssnTxt.getText().length() > 0) {
-                deleteCount += 1;
-                if (deleteCount > 1)
-                    queryS += "and(" + cssnS + "=" + "'" + cssnTxt.getText() + "')";
-                else
-                    queryS += "(" + cssnS + "=" + "'" + cssnTxt.getText() + "')";
-
-            }
-
-            if (srssnTxt.getText().length() > 0) {
-                deleteCount += 1;
-                if (deleteCount > 1)
-                    queryS += "and(" + srssnS + "=" + "'" + srssnTxt.getText() + "')";
-                else
-                    queryS += "(" + srssnS + "=" + "'" + srssnTxt.getText() + "')";
-            }
-
-            if (smssnTxt.getText().length() > 0) {
-                deleteCount += 1;
-                if (deleteCount > 1)
-                    queryS += "and(" + smssnS + "=" + "'" + smssnTxt.getText() + "')";
-                else
-                    queryS += "(" + smssnS + "=" + "'" + smssnTxt.getText() + "')";
-            }
-
-            if (vinNumTxt.getText().length() > 0) {
-                deleteCount += 1;
-                if (deleteCount > 1)
-                    queryS += "and(" + vinNumS + "=" + "'" + vinNumTxt.getText() + "')";
-                else
-                    queryS += "(" + vinNumS + "=" + "'" + vinNumTxt.getText() + "')";
-            }
-            if (typeTxt.getText().length() > 0) {
-                deleteCount += 1;
-                if (deleteCount > 1)
-                    queryS += "and(" + typeS + "=" + "'" + typeTxt.getText() + "')";
-                else
-                    queryS += "(" + typeS + "=" + "'" + typeTxt.getText() + "')";
-            }
-
-            if (deleteCount == 0) {
-                queryS = queryS.replace(" WHERE ", "");
-            }
-
-            SqlObject query = new SqlObject(frame, main, queryS, table, column);
-            query.query();
-        }
-
+        //
         if (e.getSource() == submit && sqlType == 4) {
             if (numTxt.getText().length() > 0) {
                 where += "(" + numS + "=" + "'" + numTxt.getText() + "');";
