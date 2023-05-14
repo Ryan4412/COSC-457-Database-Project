@@ -126,7 +126,7 @@ public class QueryPanel implements ActionListener {
         }
         if (e.getSource() == selectQuery) {
             // sales rep avr commission
-            if (selectQuery.getSelectedItem().equals("Average commission of sales reps")) {
+            if (selectQuery.getSelectedItem().equals("Average commission of sales representative")) {
                 String[] column = { "COMMISSION" };
                 SqlObject query = new SqlObject(frame, main, "SELECT AVG(COMMISSION) FROM rkraft3db.DBP_SALES_REP;",
                         "DBP_SALES_REP", column);
