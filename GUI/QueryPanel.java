@@ -21,11 +21,10 @@ public class QueryPanel implements ActionListener {
     String[] selectableQueries = { "Average commission of sales representative",
             "Sales representative commission (highest to lowest)",
             "Sales representative car sales (highest to lowest)", "Average salary of sales manager",
-            "Sales manager car sales (highest to lowest)",
             "Used Car MPG (highest to lowest)", "New Car MPG (highest to lowest)", "All Car MPG (highest to lowest)",
             "Average customer GMI",
             "Customer GMI (highest to lowest)", "Average customer credit score",
-            "Customer credic score (highest to lowest)", "Average cosigner GMI",
+            "Customer credit score (highest to lowest)", "Average cosigner GMI",
             "Cosigner GMI (highest to lowest)", "Average cosigner credit score",
             "Cosigner credit score (highest to lowest)" };
 
@@ -137,6 +136,80 @@ public class QueryPanel implements ActionListener {
                 SqlObject query = new SqlObject(frame, main,
                         "SELECT* FROM rkraft3db.DBP_SALES_REP ORDER BY COMMISSION DESC;",
                         "DBP_SALES_REP", column);
+                query.query();
+            }
+            // All car MPG
+            if (selectQuery.getSelectedItem().equals("All Car MPG (highest to lowest)")) {
+                String[] column = { "VIN", "NUM_DOORS", "COLOR", "NUM_SEATS", "ENGINE_TYPE", "NUM_MILES", "MPG",
+                        "TIRE_TYPE",
+                        "MSRP", "YEAR", "MAKE", "MODEL", "STATUS" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT* FROM rkraft3db.DBP_CAR ORDER BY MPG DESC;",
+                        "DBP_CAR", column);
+                query.query();
+            }
+            // customer gmi
+            if (selectQuery.getSelectedItem().equals("Average customer GMI")) {
+                String[] column = { "GMI" };
+                SqlObject query = new SqlObject(frame, main, "SELECT AVG(GMI) FROM rkraft3db.DBP_CUSTOMER;",
+                        "DBP_CUSTOMER", column);
+                query.query();
+            }
+            if (selectQuery.getSelectedItem().equals("Customer GMI (highest to lowest)")) {
+                String[] column = { "C_SSN", "FIRST", "MINIT", "LAST", "OCCUPATION", "CREDIT_SCORE", "GMI",
+                        "RECENT_EMPLOYER",
+                        "LICENSE_NUM", "PAYMENT_TYPE" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT* FROM rkraft3db.DBP_CUSTOMER ORDER BY GMI DESC;",
+                        "DBP_CUSTOMER", column);
+                query.query();
+            }
+            // customer credit score
+            if (selectQuery.getSelectedItem().equals("Average customer credit score")) {
+                String[] column = { "CREDIT_SCORE" };
+                SqlObject query = new SqlObject(frame, main, "SELECT AVG(CREDIT_SCORE) FROM rkraft3db.DBP_CUSTOMER;",
+                        "DBP_CUSTOMER", column);
+                query.query();
+            }
+            if (selectQuery.getSelectedItem().equals("Customer credit score (highest to lowest)")) {
+                String[] column = { "C_SSN", "FIRST", "MINIT", "LAST", "OCCUPATION", "CREDIT_SCORE", "GMI",
+                        "RECENT_EMPLOYER",
+                        "LICENSE_NUM", "PAYMENT_TYPE" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT* FROM rkraft3db.DBP_CUSTOMER ORDER BY CREDIT_SCORE DESC;",
+                        "DBP_CUSTOMER", column);
+                query.query();
+            }
+            // cosigner gmi
+            if (selectQuery.getSelectedItem().equals("Average cosigner GMI")) {
+                String[] column = { "GMI" };
+                SqlObject query = new SqlObject(frame, main, "SELECT AVG(GMI) FROM rkraft3db.DBP_COSIGNER;",
+                        "DBP_COSIGNER", column);
+                query.query();
+            }
+            if (selectQuery.getSelectedItem().equals("Cosigner GMI (highest to lowest)")) {
+                String[] column = { "CO_SSN", "FIRST", "MINIT", "LAST", "OCCUPATION", "CREDIT_SCORE", "GMI",
+                        "RECENT_EMPLOYER",
+                        "LICENSE_NUM", "PAYMENT_TYPE", "CUSTOMER_SSN" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT* FROM rkraft3db.DBP_COSIGNER ORDER BY GMI DESC;",
+                        "DBP_COSIGNER", column);
+                query.query();
+            }
+            // Cosigner credit
+            if (selectQuery.getSelectedItem().equals("Average cosigner credit score")) {
+                String[] column = { "CREDIT_SCORE" };
+                SqlObject query = new SqlObject(frame, main, "SELECT AVG(CREDIT_SCORE) FROM rkraft3db.DBP_COSIGNER;",
+                        "DBP_COSIGNER", column);
+                query.query();
+            }
+            if (selectQuery.getSelectedItem().equals("Cosigner credit score (highest to lowest)")) {
+                String[] column = { "CO_SSN", "FIRST", "MINIT", "LAST", "OCCUPATION", "CREDIT_SCORE", "GMI",
+                        "RECENT_EMPLOYER",
+                        "LICENSE_NUM", "PAYMENT_TYPE", "CUSTOMER_SSN" };
+                SqlObject query = new SqlObject(frame, main,
+                        "SELECT* FROM rkraft3db.DBP_COSIGNER ORDER BY CREDIT_SCORE DESC;",
+                        "DBP_COSIGNER", column);
                 query.query();
             }
 
