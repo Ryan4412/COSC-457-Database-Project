@@ -55,7 +55,7 @@ public class CustomerPanel implements ActionListener {
     String delete = "DELETE FROM rkraft3db.DBP_CUSTOMER WHERE ";
     String queryS = "SELECT * FROM rkraft3db.DBP_CUSTOMER WHERE ";
     String updateS = "UPDATE rkraft3db.DBP_CUSTOMER SET ";
-    String whatCustS = "SELECT FIRST, MINIT, LAST FROM DBP_CUSTOMER WHERE C_SSN IN (SELECT CUST_SSN FROM DBP_SALE WHERE SALE_VIN IN (SELECT VIN FROM DBP_CAR WHERE MAKE = '#'))";
+    String whatCustS = "SELECT FIRST, MINIT, LAST FROM rkraft3db.DBP_CUSTOMER WHERE C_SSN IN (SELECT CUST_SSN FROM rkraft3db.DBP_SALE WHERE SALE_VIN IN (SELECT VIN FROM rkraft3db.DBP_CAR WHERE MAKE = '#'))";
     String where = " WHERE ";
     int sqlType;
     int deleteCount = 0;
